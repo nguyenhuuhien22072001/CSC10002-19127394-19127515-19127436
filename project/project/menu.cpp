@@ -22,6 +22,7 @@ void is_log_out()
 }
 void show_menu_lecturer()
 {
+	cout << "-1 - Log out." << endl;
     cout << "0 - View list of courses in the current semester."<< endl ;
     cout << "1 - View list of students of a course." << endl ; 
     cout << "2 - View attendance list of a course." << endl ; 
@@ -32,13 +33,14 @@ void show_menu_lecturer()
 }
 void show_menu_student()
 {
-    cout << "Check-in." << endl ; 
-    cout << "View check-in result." << endl ; 
-    cout << "View schedules."  << endl ;
-    cout << "View his/her scores of a course." << endl ;
+	cout << "-1 - Log out." << endl;
+    cout << "0 - Check-in." << endl ; 
+    cout << "1 - View check-in result." << endl ; 
+    cout << "2 - View schedules."  << endl ;
+    cout << "3 - View his/her scores of a course." << endl ;
 }
 void show_menu_staff() {
-	int n;
+	cout << "-1 - Log out." << endl;
 	cout << "0 - Import students of a class. " << endl;
 	cout << "1 - Add a new student to a class. " << endl;
 	cout << "2 - Edit an existing student. " << endl;
