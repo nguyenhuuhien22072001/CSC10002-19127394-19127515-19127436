@@ -15,9 +15,8 @@ struct Information {
     string fullname;
     Date dob;
     int male;//1:male,0:female
+    string  degree; 
     int type; // 0: staff; 1: lecturer; 2: student
     int active;// 0:unactive; 1:active
 };
-
-
 #endif
