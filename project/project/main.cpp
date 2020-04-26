@@ -1,7 +1,8 @@
 #include "Manager.h"
 int main()
-{
+{	
 	fstream fstu, fsta, flec;
+	first_menu() ; 
 	int num=login(fstu, fsta, flec);
 	if (num == 0)
 	{
@@ -9,8 +10,6 @@ int main()
 		show_menu_staff();
 		cout << "Choose option: ";
 		cin >> choice;
-
-
 	}
 	else if (num == 1)
 	{

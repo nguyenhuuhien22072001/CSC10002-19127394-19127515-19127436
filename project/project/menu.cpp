@@ -9,6 +9,7 @@ void  first_menu()
    if (n == 0)
        exit ;
 }
+
 void is_log_out()
 {
     int n ; 
