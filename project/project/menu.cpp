@@ -1,9 +1,20 @@
 #include "Manager.h"
+void  first_menu()
+{
+   int n ;  
+   cout << "0 - Log out" << endl ; 
+   cout << "1 - Log in " << endl ; 
+   cout << " You option :" << endl ;
+   cin >> n  ; 
+   if (n == 0)
+       exit ;
+}
 void is_log_out()
 {
     int n ; 
-    cout << "Do you want to  log out ?" << endl ; 
-    cout << "if you want to log out  enter 1 otherwise enter 0 "<< endl ;
+    cout << "0 - Log out" << endl ; 
+    cout << "1 - Continue " << endl ; 
+    cout << " You option :" << endl ;
     cin >> n ; 
     if (n == 0)
        exit ;
