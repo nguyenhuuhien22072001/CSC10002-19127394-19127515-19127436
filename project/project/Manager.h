@@ -19,4 +19,11 @@ struct Information {
     int type; // 0: staff; 1: lecturer; 2: student
     int active;// 0:unactive; 1:active
 };
+void  first_menu();
+void is_log_out();
+void show_menu_lecturer();
+void show_menu_student();
+void showInfo(Information person);
+int login(fstream& fstu, fstream& fsta, fstream& flec);
+
 #endif
