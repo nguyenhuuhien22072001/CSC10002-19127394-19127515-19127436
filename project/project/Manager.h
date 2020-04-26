@@ -13,6 +13,7 @@ struct Information {
     string password;
     string fullname;
     Date dob;
+    string  degree; 
     int type; // 0: staff; 1: lecturer; 2: student
 };
 #endif
