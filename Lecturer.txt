@@ -2,19 +2,19 @@
 dbtien
 abcdef
 Dinh Ba Tien
-Tien si
-0 // Male
+Tien si // 22072001
+0 
 
 nmhuy
 abcdef
 Nguyen Minh Huy
 Thac si
-0 // Male
+0 
 
 nhminh
 abcdef
 Nguyen Hai Minh
-1 // Female
+1 
 
 dnvu
 dnvu
