@@ -1,8 +1,10 @@
 #include "Manager.h"
 int main()
 {
+	first_menu();
 	fstream fstu, fsta, flec;
 	int num=login(fstu, fsta, flec);
+	first_menu();
 	if (num == 0)
 	{
 		int choice;
