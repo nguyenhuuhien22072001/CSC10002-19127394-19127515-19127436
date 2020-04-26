@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
+#include <stdlib.h>
 using namespace std;
 struct Date {
     int date, month, year;
@@ -16,6 +18,6 @@ struct Information {
     int type; // 0: staff; 1: lecturer; 2: student
     int active;// 0:unactive; 1:active
 };
-int login(fstream& fstu, fstream& fsta, fstream& flec);
+
 
 #endif
