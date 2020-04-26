@@ -21,6 +21,7 @@ struct Information {
 };
 void  first_menu();
 void is_log_out();
+void show_menu_staff() ; 
 void show_menu_lecturer();
 void show_menu_student();
 void showInfo(Information person);

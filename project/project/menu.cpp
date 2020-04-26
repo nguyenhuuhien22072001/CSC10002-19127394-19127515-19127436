@@ -1,5 +1,4 @@
 #include "Manager.h"
-
 void  first_menu()
 {
    int n ;  
