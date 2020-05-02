@@ -95,6 +95,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		getline(fstu, student[i].password);
 		cin.ignore();
 		getline(fstu, student[i].fullname);
+		cin.ignore();
 		fstu >> student[i].dob.date;
 		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
@@ -116,7 +117,8 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		getline(flec, lecture[i].password);
 		cin.ignore();
 		getline(flec, lecture[i].fullname);
-		flec >> lecture[i].dob.date;
+		cin.ignore();
+		flec>>lecture[i].dob.date;
 		flec >> lecture[i].dob.month;
 		flec >> lecture[i].dob.year;
 		flec >> lecture[i].male;
@@ -137,7 +139,8 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		getline(fsta, staff[i].password);
 		cin.ignore();
 		getline(fsta, staff[i].fullname);
-		fsta >> staff[i].dob.date;
+		cin.ignore();
+		fsta>>staff[i].dob.date;
 		fsta >> staff[i].dob.month;
 		fsta >> staff[i].dob.year;
 		fsta >> staff[i].male;

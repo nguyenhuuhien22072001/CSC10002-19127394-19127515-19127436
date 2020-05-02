@@ -16,6 +16,7 @@ struct Information {
     Date dob;
     int male;//1:male,0:female
     string  degree; 
+    string Class;
     int type; // 0: staff; 1: lecturer; 2: student
     int active;// 0:unactive; 1:active
 };
@@ -26,5 +27,8 @@ void show_menu_lecturer();
 void show_menu_student();
 void showInfo(Information person);
 int login(fstream& fstu, fstream& fsta, fstream& flec);
+
+//staff function
+void Importstudent(ofstream& fstu, char* filename);
 
 #endif
