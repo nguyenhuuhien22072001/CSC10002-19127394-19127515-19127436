@@ -80,10 +80,11 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 {
 	string username;
 	string password;
+	cin.ignore();
 	cout << "Enter your User name: ";
-	cin >> username;
+	getline(cin , username);
 	cout << "Enter your Password: ";
-	cin >> password;
+	getline(cin , password); 
 
 	int n;
 	fstu >> n;
