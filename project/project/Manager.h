@@ -13,6 +13,7 @@ struct Information {
     string id;
     string password;
     string fullname;
+    string Class ; 
     Date dob;
     int male;//1:male,0:female
     string  degree; 
@@ -28,7 +29,10 @@ void show_menu_student();
 void showInfo(Information person);
 int login(fstream& fstu, fstream& fsta, fstream& flec);
 
+
 //staff function
 void Importstudent(ofstream& fstu, char* filename);
+
+void manually_add_a_new_student_to_a_class(fstream &fstu , Information person);
 
 #endif
