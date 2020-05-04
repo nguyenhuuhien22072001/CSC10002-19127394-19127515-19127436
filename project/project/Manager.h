@@ -7,7 +7,7 @@
 #include <stdlib.h>
 using namespace std;
 struct Date {
-    int date, month, year;
+    int  date, month, year;
 };
 struct Information {
     string id;
