@@ -1,38 +1,4 @@
 #include"Manager.h"
-void loadStudent(Information*& student, string classname, int& n)
-{
-	fstream fin;
-	string temp_1 = "D:\\filetest\\Student-" + classname + ".txt";
-	const char* filename = temp_1.c_str();
-	cout << filename << endl;
-	fin.open(filename, ios::in);
-	if (!fin.is_open())
-	{
-		cout << "fail0";
-		return;
-	}
-	else
-	{
-		fin >> n;
-		student = new Information[n];
-		for (int i = 0; i < n; i++)
-		{
-			char ss[5];
-			fin.getline(ss, 3);
-			getline(fin, student[i].Class);
-			getline(fin, student[i].id);
-			getline(fin, student[i].password);
-			getline(fin, student[i].fullname);
-			fin >> student[i].dob.date;
-			fin >> student[i].dob.month;
-			fin >> student[i].dob.year;
-			string s;
-			getline(fin, s, '\n');
-		}
-		fin.close();
-	}
-}
-
 void load_file(const char* filename, int& n, Information*& Person)
 {
     fstream fin;
@@ -82,7 +48,7 @@ void Importstudents()//filename= "student_"
 
         ifstream fcsv;
 
-        string temp = "Student_" + classname + ".csv";
+        string temp = "Student-" + classname + ".csv";
         const char* inputfilename = temp.c_str();
 
         fcsv.open(inputfilename);
@@ -134,7 +100,7 @@ void Importstudents()//filename= "student_"
 void saveStudent(Information* student, string classname, int n)
 {
     fstream f;
-    string temp_1 = "Student_" + classname + ".txt";
+    string temp_1 = "Student-" + classname + ".txt";
     const char* outputfilename = temp_1.c_str();
     f.open(outputfilename, ios::out);
 
@@ -184,7 +150,7 @@ void edit_student()
         getline(cin, classname);
         cout << "   Enter username(ID): ";
         getline(cin, username);
-        string temp_1 = "Student_" + classname + ".txt";
+        string temp_1 = "Student-" + classname + ".txt";
         const char* filename = temp_1.c_str();
         load_file(filename, n, student);
         for (int i = 0; i < n; i++)
@@ -356,7 +322,7 @@ void add_student_into_file_student_and_flie_class(Information person)
     add_a_element_in_file(filename_student, n, Person, person);
     delete[] Person;
 
-    string filename_class = "Student_" + person.Class + ".txt";
+    string filename_class = "Student-" + person.Class + ".txt";
     const char* filename = filename_class.c_str();
     load_file(filename, n, Person);
     add_a_element_in_file(filename, n, Person, person);
@@ -461,7 +427,7 @@ void remove_student_in_file_student_and_flie_class(Information person)
     remove_a_element_in_file(filename_student, n, Person, person);
     delete[] Person;
 
-    string filename_class = "Student_" + person.Class + ".txt";
+    string filename_class = "Student-" + person.Class + ".txt";
     const char* filename = filename_class.c_str();
 
     load_file(filename, n, Person);
