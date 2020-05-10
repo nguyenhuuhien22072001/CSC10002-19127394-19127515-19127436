@@ -861,6 +861,133 @@ void Add_Course()
 
     saveCourses(academic_year, semester, classname, Courses_2, numofcourses + 1);
 }
+//Chuc nang 16: chinh sua khoa hoc
+void Edit_a_course()
+{
+    string academic_year, semester, classname, nameofcourse;
+    int numofcourses;
+    course* Courses = NULL;
+
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+
+    cout << "Enter semesster: ";
+    getline(cin, semester);
+
+    cout << "Enter classname: ";
+    getline(cin, classname);
+
+    cout << "Enter name of course: ";
+    getline(cin, nameofcourse);
+
+    loadCourses(academic_year, semester, classname, Courses, numofcourses);
+
+    for (int i = 0; i < numofcourses; i++)
+    {
+        if (nameofcourse == Courses[i].name)
+        {
+            int num;
+            do
+            {
+                cout << "-1 - Exit";
+                cout << "0 - Edit ID" << endl;
+                cout << "1 - Edit name of course" << endl;
+                cout << "2 - Edit class name" << endl;
+                cout << "3 - Edit ID of lecture" << endl;
+                cout << "4 - Edit name of lecture" << endl;
+                cout << "5 - Edit degree of lecture" << endl;
+                cout << "6 - Edit male of lecture" << endl;
+                cout << "7 - Edit  start day" << endl;
+                cout << "8 - Edit end day" << endl;
+                cout << "9 - Edit start hour" << endl;
+                cout << "10 - Edit end hour" << endl;
+                cout << "11 - Edit room" << endl;
+
+                cout << "Your choice: ";
+                cin >> num;
+                cin.ignore;
+
+                switch (num)
+                {
+                case 0:
+                {
+                    getline(cin, Courses[i].ID);
+                    break;
+                }
+                case 1:
+                {
+                    getline(cin, Courses[i].name);
+                    break;
+                }
+                case 2:
+                {
+                    getline(cin, Courses[i].classname);
+                    break;
+                }
+                case 3:
+                {
+                    getline(cin, Courses[i].lecture.id);
+                    break;
+                }
+                case 4:
+                {
+                    getline(cin, Courses[i].lecture.fullname);
+                    break;
+                }
+                case 5:
+                {
+                    getline(cin, Courses[i].lecture.degree);
+                    break;
+                }
+                case 6:
+                {
+                    cin >> Courses[i].lecture.male;
+                    break;
+                }
+                case 7:
+                {
+                    cin >> Courses[i].startD.date;
+                    cin >> Courses[i].startD.month;
+                    cin >> Courses[i].startD.year;
+                    break;
+                }
+                case 8:
+                {
+                    cin >> Courses[i].endD.date;
+                    cin >> Courses[i].endD.month;
+                    cin >> Courses[i].endD.year;
+                    break;
+                }
+                case 9:
+                {
+                    cin >> Courses[i].startH.hour;
+                    cin >> Courses[i].startH.minute;
+                    break;
+                }
+                case 10:
+                {
+                    cin >> Courses[i].endH.hour;
+                    cin >> Courses[i].endH.minute;
+                    break;
+                }
+                case 11:
+                {
+                    getline(cin, Courses[i].room);
+                    break;
+                }
+                default:
+                {
+                    cout << "Your choice inavalid !!";
+                    break;
+                }
+                }
+            } while (num != -1);
+            
+        }
+
+    }
+    saveCourses(academic_year, semester, classname, Courses, numofcourses);
+}
 
 
 
