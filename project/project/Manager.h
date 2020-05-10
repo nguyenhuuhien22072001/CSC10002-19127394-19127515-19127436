@@ -13,13 +13,29 @@ struct Information {
     string id;
     string password;
     string fullname;
-    string Class ; 
     Date dob;
+    string Class;
+    int active;// 0:unactive; 1:active
     int male;//1:male,0:female
     string  degree; 
-    string Class;
     int type; // 0: staff; 1: lecturer; 2: student
-    int active;// 0:unactive; 1:active
+};
+struct time {
+    int hour;
+    int minute;
+};
+struct course {
+    int no;
+    string ID;
+    string name;
+    string classname;
+    Information lecture;
+    Date startD;
+    Date endD;
+    int dayofweek;
+    time startH;
+    time endH;
+    string room;
 };
 void  first_menu();
 void is_log_out();
@@ -31,8 +47,25 @@ int login(fstream& fstu, fstream& fsta, fstream& flec);
 
 
 //staff function
-void Importstudent(ofstream& fstu, char* filename);
+void loadStudent(Information*& student, string classname, int& n);
+void saveStudent(Information* student, string classname, int n);
 
 void manually_add_a_new_student_to_a_class(fstream &fstu , Information person);
+
+//----------------couses-------------------------------------------------------
+
+//  13.
+void createSemester();
+
+//  14.
+int sum_day(Date date);
+int find_day_of_week(Date date);
+int month2(Date date);
+Date add_date(Date date, int numofday);
+Date first_lesson(Date startD, int dayofweek);
+
+void saveCourses(string academic_year, string semester, string classname, course* Courses, int numofcourse);
+void saveStudentOfCourse(string academic_year, string semester, string classname, course* Courses,int numofcourse);
+void ImportCourses();
 
 #endif

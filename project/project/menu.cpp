@@ -80,7 +80,6 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 {
 	string username;
 	string password;
-	cin.ignore();
 	cout << "Enter your User name: ";
 	getline(cin , username);
 	cout << "Enter your Password: ";
@@ -92,16 +91,11 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 	for (int i = 0; i < n; i++)
 	{
 		getline(fstu, student[i].id);
-		cin.ignore();
 		getline(fstu, student[i].password);
-		cin.ignore();
 		getline(fstu, student[i].fullname);
-		cin.ignore();
 		fstu >> student[i].dob.date;
 		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
-		fstu >> student[i].male;
-		fstu >> student[i].type;
 		if (username == student[i].id && password == student[i].password)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
@@ -114,16 +108,12 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 	for (int i = 0; i < n; i++)
 	{
 		getline(flec, lecture[i].id);
-		cin.ignore();
 		getline(flec, lecture[i].password);
-		cin.ignore();
 		getline(flec, lecture[i].fullname);
-		cin.ignore();
 		flec>>lecture[i].dob.date;
 		flec >> lecture[i].dob.month;
 		flec >> lecture[i].dob.year;
 		flec >> lecture[i].male;
-		flec >> lecture[i].type;
 		if (username == lecture[i].id && password == lecture[i].password)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
@@ -136,16 +126,12 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 	for (int i = 0; i < n; i++)
 	{
 		getline(fsta, staff[i].id);
-		cin.ignore();
 		getline(fsta, staff[i].password);
-		cin.ignore();
 		getline(fsta, staff[i].fullname);
-		cin.ignore();
 		fsta>>staff[i].dob.date;
 		fsta >> staff[i].dob.month;
 		fsta >> staff[i].dob.year;
 		fsta >> staff[i].male;
-		fsta >> staff[i].type;
 		if (username == staff[i].id && password == staff[i].password)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
@@ -153,4 +139,5 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 			return 0;
 		}
 	}
+	return -1;
 }
