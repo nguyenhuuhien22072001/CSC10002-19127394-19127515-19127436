@@ -86,23 +86,30 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 	getline(cin , password); 
 
 	int n;
+	fstu.open("Student.txt" , ios :: in); 
 	fstu >> n;
 	Information* student = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
+		cin.ignore();
+		getline(fstu , student[i].Class);
 		getline(fstu, student[i].id);
 		getline(fstu, student[i].password);
 		getline(fstu, student[i].fullname);
 		fstu >> student[i].dob.date;
 		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
+		// fstu >> student[i].male;
+		// fstu >> student[i].type;
 		if (username == student[i].id && password == student[i].password)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
 			showInfo(student[i]);
+			fstu.close();
 			return 2;
 		}
 	}
+	flec.open("Lecture.txt");
 	flec >> n;
 	Information* lecture = new Information[n];
 	for (int i = 0; i < n; i++)
@@ -118,9 +125,11 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
 			showInfo(lecture[i]);
+			flec.close();
 			return 1;
 		}
 	}
+	fsta.open("Staff.txt" , ios :: in);
 	fsta >> n;
 	Information* staff = new Information[n];
 	for (int i = 0; i < n; i++)
@@ -136,6 +145,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
 			showInfo(staff[i]);
+			fsta.close();
 			return 0;
 		}
 	}
