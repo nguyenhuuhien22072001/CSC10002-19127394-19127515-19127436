@@ -988,6 +988,39 @@ void Edit_a_course()
     }
     saveCourses(academic_year, semester, classname, Courses, numofcourses);
 }
+//Chuc nang 17: Xoa khoa hoc
+void Remove_course()
+{
+    string academic_year, semester, classname, courseID;
+    int numofcourses;
+    course* Courses = NULL;
+
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+
+    cout << "Enter semesster :";
+    getline(cin, semester);
+
+    cout << "Enter classname";
+    getline(cin, classname);
+
+    cout << "Enter course ID: ";
+    getline(cin, courseID);
+
+    loadCourses(academic_year, semester, classname, Courses, numofcourses);
+    bool check = false;
+    for (int i = 0; i < numofcourses; i++)
+    {
+        if (courseID == Courses[i].ID)
+            check = true;
+        if (check == true)
+            Courses[i] = Courses[i + 1];
+    }
+    if (check == true)
+        saveCourses(academic_year, semester, classname, Courses, numofcourses-1);
+    else
+        cout << "Not found ID of course " << endl;
+}
 
 
 
