@@ -3,33 +3,62 @@
 int main()
 {
 	first_menu();
-	fstream fstu, fsta, flec;
-	fstream apcs1 , apcs2 , clc1 , clc2 , clc3 , clc4 , clc5 , clc6 , clc7 , clc8 ,clc9 , clc10 ;
-	first_menu() ; 
+	Information person ; 
+	fstream fstu, fsta, flec; 
 	int num=login(fstu, fsta, flec);
-	first_menu();
-	if (num == 0)
+	if(num == -1)
 	{
-		int choice;
-		show_menu_staff();
-		cout << "Choose option: ";
-		cin >> choice;
-	}
-	else if (num == 1)
-	{
-		int choice;
-		show_menu_lecturer();
-		cout << "Choose option: ";
-		cin >> choice;
-		
-
+		cout << "Log in fail , try again" << endl ; 
+		//return login(fstu, fsta, flec);
 	}
 	else
 	{
-		int choice;
-		show_menu_student;
-		cout << "Choose option: ";
-		cin >> choice;
+		int num2 ; 
+		cout << "1 - Show menu" << endl ; 
+		cout << "2 - View Profile" << endl ;
+		cout << "3 - Change password" << endl ; 
+		cout << "4 - Log out" << endl ; 
+		cout << "You option : " ; 
+		while(num2 != 4)
+		{
+			switch (num2)
+			{
+				case 1:
+				{
+					if (num == 0)
+					{
+						int choice;
+						show_menu_staff();
+						cout << "Choose option: ";
+						cin >> choice;
+					}
+					else if (num == 1)
+					{
+						int choice;
+						show_menu_lecturer();
+						cout << "Choose option: ";
+						cin >> choice;
+					}
+					else
+					{
+						int choice;
+						show_menu_student;
+						cout << "Choose option: ";
+						cin >> choice;
+					}
+					break;
+				}
+				case 2 : 
+					showInfo(person);
+					break;
+				case 3 : 
+					break ; 
+				default:
+					break;
+			}
+		}
 	}
+
+	
 	return 0;
 }
