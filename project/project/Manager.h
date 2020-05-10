@@ -20,7 +20,7 @@ struct Information {
     string  degree; 
     int type; // 0: staff; 1: lecturer; 2: student
 };
-struct time {
+struct times {
     int hour;
     int minute;
 };
@@ -33,8 +33,8 @@ struct course {
     Date startD;
     Date endD;
     int dayofweek;
-    time startH;
-    time endH;
+    times startH;
+    times endH;
     string room;
 };
 void  first_menu();

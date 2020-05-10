@@ -82,7 +82,7 @@ void Importstudents()//filename= "student_"
 
         ifstream fcsv;
 
-        string temp = "Student_" + classname + ".csv";
+        string temp = "Student-" + classname + ".csv";
         const char* inputfilename = temp.c_str();
 
         fcsv.open(inputfilename);
@@ -134,7 +134,7 @@ void Importstudents()//filename= "student_"
 void saveStudent(Information* student, string classname, int n)
 {
     fstream f;
-    string temp_1 = "Student_" + classname + ".txt";
+    string temp_1 = "Student-" + classname + ".txt";
     const char* outputfilename = temp_1.c_str();
     f.open(outputfilename, ios::out);
 
@@ -184,7 +184,7 @@ void edit_student()
         getline(cin, classname);
         cout << "   Enter username(ID): ";
         getline(cin, username);
-        string temp_1 = "Student_" + classname + ".txt";
+        string temp_1 = "Student-" + classname + ".txt";
         const char* filename = temp_1.c_str();
         load_file(filename, n, student);
         for (int i = 0; i < n; i++)
@@ -461,7 +461,7 @@ void remove_student_in_file_student_and_flie_class(Information person)
     remove_a_element_in_file(filename_student, n, Person, person);
     delete[] Person;
 
-    string filename_class = "Student_" + person.Class + ".txt";
+    string filename_class = "Student-" + person.Class + ".txt";
     const char* filename = filename_class.c_str();
 
     load_file(filename, n, Person);
@@ -672,7 +672,7 @@ void saveCourses(string academic_year, string semester, string classname, course
 	string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + "schedule" + "-" + classname + ".txt";
 	const char* filename = temp.c_str();
 	ofstream fout;
-	fout.open(filename);
+	fout.open(filename,ios::out);
 
 	fout << numofcourse << endl;
 	for (int i = 0; i < numofcourse; i++)
@@ -817,6 +817,83 @@ void ImportCourses()
 
 	saveCourses(academic_year, semester, classname, Courses, numofcourses );
 	saveStudentOfCourse(academic_year, semester, classname, Courses, numofcourses );
+}
+
+//Chuc nang 15: them khoa hoc vào danh sach
+void loadCourses(string academic_year, string semester, string classname, course*& Courses, int& numofcourses)
+{
+    string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + "schedule" + "-" + classname + ".txt";
+    const char* filename = temp.c_str();
+    fstream fin;
+    fin.open(filename, ios::in);
+    fin >> numofcourses;
+    Courses = new course[numofcourses];
+    for (int i = 0; i < numofcourses; i++)
+    {
+        string s;
+        getline(fin, Courses[i].ID);
+        getline(fin, Courses[i].name);
+        getline(fin, Courses[i].classname);
+        getline(fin, Courses[i].lecture.id);
+        getline(fin, Courses[i].lecture.fullname);
+        getline(fin, Courses[i].lecture.degree);
+        fin >> Courses[i].lecture.male;
+        fin >> Courses[i].startD.date;
+        fin >> Courses[i].startD.month;
+        fin >> Courses[i].startD.year;
+        fin >> Courses[i].endD.date;
+        fin >> Courses[i].endD.month;
+        fin >> Courses[i].endD.year;
+        fin >> Courses[i].startH.hour;
+        fin >> Courses[i].startH.minute;
+        fin >> Courses[i].endH.hour;
+        fin >> Courses[i].endH.minute;
+        getline(fin, Courses[i].room);
+        getline(fin, s);
+    }
+    fin.close();
+}
+void Add_Course()
+{
+    string academic_year, semester, classname;
+    int numofcourses;
+    course* Courses_1 = NULL;
+
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+
+    cout << "Enter semesster :";
+    getline(cin, semester);
+
+    cout << "Enter classname";
+    getline(cin, classname);
+
+    loadCourses(academic_year, semester, classname, Courses_1, numofcourses);
+
+    course* Courses_2 = new course[numofcourses + 1];
+
+    for (int i = 0; i < numofcourses; i++)
+        Courses_2[i] = Courses_1[i];
+    getline(cin, Courses_2[numofcourses].ID);
+    getline(cin, Courses_2[numofcourses].name);
+    getline(cin, Courses_2[numofcourses].classname);
+    getline(cin, Courses_2[numofcourses].lecture.id);
+    getline(cin, Courses_2[numofcourses].lecture.fullname);
+    getline(cin, Courses_2[numofcourses].lecture.degree);
+    cin >> Courses_2[numofcourses].lecture.male;
+    cin >> Courses_2[numofcourses].startD.date;
+    cin >> Courses_2[numofcourses].startD.month;
+    cin >> Courses_2[numofcourses].startD.year;
+    cin >> Courses_2[numofcourses].endD.date;
+    cin >> Courses_2[numofcourses].endD.month;
+    cin >> Courses_2[numofcourses].endD.year;
+    cin >> Courses_2[numofcourses].startH.hour;
+    cin >> Courses_2[numofcourses].startH.minute;
+    cin >> Courses_2[numofcourses].endH.hour;
+    cin >> Courses_2[numofcourses].endH.minute;
+    getline(cin, Courses_2[numofcourses].room);
+
+    saveCourses(academic_year, semester, classname, Courses_2, numofcourses + 1);
 }
 
 
