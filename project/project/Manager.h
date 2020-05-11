@@ -108,4 +108,10 @@ void Remove_course();
 
 //18
 void Remove_student_from_a_course();
+
+//19
+void Add_student_into_course();
+
+//20
+void View_list_courses();
 #endif

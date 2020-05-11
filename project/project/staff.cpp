@@ -1186,4 +1186,30 @@ void Add_student_into_course()
     saveStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent + 1);
 
 }
+//Chuc nang 20: Xem danh sach khoa hoc trong HK hien tai
+void View_list_courses()
+{
+    string academic_year, semester, classname;
+    int numofcourses;
+    course* Courses = NULL;
+
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter classname: ";
+    getline(cin, classname);
+
+    loadCourses(academic_year, semester, classname, Courses, numofcourses);
+
+    for (int i = 0; i < numofcourses; i++)
+    {
+        cout << Courses[i].ID << endl;
+        cout << Courses[i].name << endl;
+        cout << Courses[i].lecture.id << endl;
+        cout << Courses[i].lecture.fullname << endl;
+        cout << Courses[i].lecture.degree << endl;
+        cout << Courses[i].lecture.male;
+    }
+}
 
