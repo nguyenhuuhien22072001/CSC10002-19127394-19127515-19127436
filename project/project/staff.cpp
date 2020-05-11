@@ -632,6 +632,124 @@ Date first_lesson(Date startD, int dayofweek)// startD : start day, dayofweek: t
 	return add_date(startD, distance_time);
 }
 
+//Dua thong tin cua khoa hoc vao mang
+void loadCourses(string academic_year, string semester, string classname, course*& Courses, int& numofcourses)
+{
+    string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + "schedule" + "-" + classname + ".txt";
+    const char* filename = temp.c_str();
+    fstream fin;
+    fin.open(filename, ios::in);
+    fin >> numofcourses;
+    Courses = new course[numofcourses];
+    for (int i = 0; i < numofcourses; i++)
+    {
+        string s;
+        getline(fin, Courses[i].ID);
+        getline(fin, Courses[i].name);
+        getline(fin, Courses[i].classname);
+        getline(fin, Courses[i].lecture.id);
+        getline(fin, Courses[i].lecture.fullname);
+        getline(fin, Courses[i].lecture.degree);
+        fin >> Courses[i].lecture.male;
+        fin >> Courses[i].startD.date;
+        fin >> Courses[i].startD.month;
+        fin >> Courses[i].startD.year;
+        fin >> Courses[i].endD.date;
+        fin >> Courses[i].endD.month;
+        fin >> Courses[i].endD.year;
+        fin >> Courses[i].startH.hour;
+        fin >> Courses[i].startH.minute;
+        fin >> Courses[i].endH.hour;
+        fin >> Courses[i].endH.minute;
+        getline(fin, Courses[i].room);
+        getline(fin, s);
+    }
+    fin.close();
+}
+//Dua thong tin cua hoc sinh trong 1 khoa hoc vao mang
+void loadStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course *&student, int& numofstudent)
+{
+    string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
+    const char* filename = temp.c_str();
+    ifstream fin;
+
+    fin.open(filename);
+
+    fin >> numofstudent;
+    student = new student_in_course[numofstudent];
+
+    for (int i = 0; i < numofstudent; i++)
+    {
+        getline(fin, student[i].Class);
+        getline(fin, student[i].id);
+        getline(fin, student[i].fullname);
+        fin >> student[i].dob.date;
+        fin >> student[i].dob.month;
+        fin>> student[i].dob.year;
+        fin >> student[i].active;
+        fin >> student[i].mark.lab;
+        fin >> student[i].mark.midterm;
+        fin >> student[i].mark.final;
+        fin >> student[i].mark.bonus;
+        for (int j = 0; j < 10; j++)
+        {
+            fin >> student[i].date[j].date;
+            fin >> student[i].date[j].month;
+            fin >> student[i].date[j].year;
+            fin >> student[i].StartTime[j].hour;
+            fin >> student[i].StartTime[j].minute;
+            fin >> student[i].EndTime[j].hour;
+            fin >> student[i].EndTime[j].minute;
+            fin >> student[i].check_in[j];
+        }
+        string s;
+        getline(fin, s);
+    }
+    fin.close();
+}
+//luu thong tin cua sinh vien cua khoa hoc vao khoa hoc
+void saveStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course* student, int numofstudent)
+{
+    string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
+    const char* filename = temp.c_str();
+    ofstream fout;
+
+    fout.open(filename,ios::out);
+    if (!fout.is_open())
+    {
+        cout << "fail !!";
+        return;
+    }
+
+    fout << numofstudent<<endl;
+    for (int i = 0; i < numofstudent; i++)
+    {
+        fout << student[i].Class << endl;
+        fout << student[i].id << endl;
+        fout << student[i].fullname << endl;
+        fout << student[i].dob.date << " ";
+        fout << student[i].dob.month << " ";
+        fout << student[i].dob.year << endl;
+        fout << student[i].active << endl;
+        fout << student[i].mark.lab << endl;
+        fout << student[i].mark.midterm << endl;
+        fout << student[i].mark.final << endl;
+        fout << student[i].mark.bonus << endl;
+        for (int j = 0; j < 10; j++)
+        {
+            fout << student[i].date[j].date << " ";
+            fout << student[i].date[j].month << " ";
+            fout << student[i].date[j].year << " ";
+            fout << student[i].StartTime[j].hour << " ";
+            fout << student[i].StartTime[j].minute << " ";
+            fout << student[i].EndTime[j].hour << " ";
+            fout << student[i].EndTime[j].minute << " ";
+            fout << student[i].check_in[j] << endl;
+        }
+    }
+    fout.close();
+}
+
 //-Luu thong tin cac khoa hoc trong 1 hoc ky nam hoc
 void saveCourses(string academic_year, string semester, string classname, course* Courses, int numofcourse)
 {
@@ -664,7 +782,7 @@ void saveCourses(string academic_year, string semester, string classname, course
 	}
 	fout.close();
 }
-//-Luu thong tin cua cac hoc sinh vao 1 khoa hoc
+//-Luu thong tin cua cac sinh vien tu lop sinh hoat vao 1 khoa hoc
 void saveStudentIntoACourse(Information* student, string filename, int numofstudent,course Course)
 {
 	ofstream fout;
@@ -786,39 +904,6 @@ void ImportCourses()
 }
 
 //Chuc nang 15: them khoa hoc vào danh sach
-void loadCourses(string academic_year, string semester, string classname, course*& Courses, int& numofcourses)
-{
-    string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + "schedule" + "-" + classname + ".txt";
-    const char* filename = temp.c_str();
-    fstream fin;
-    fin.open(filename, ios::in);
-    fin >> numofcourses;
-    Courses = new course[numofcourses];
-    for (int i = 0; i < numofcourses; i++)
-    {
-        string s;
-        getline(fin, Courses[i].ID);
-        getline(fin, Courses[i].name);
-        getline(fin, Courses[i].classname);
-        getline(fin, Courses[i].lecture.id);
-        getline(fin, Courses[i].lecture.fullname);
-        getline(fin, Courses[i].lecture.degree);
-        fin >> Courses[i].lecture.male;
-        fin >> Courses[i].startD.date;
-        fin >> Courses[i].startD.month;
-        fin >> Courses[i].startD.year;
-        fin >> Courses[i].endD.date;
-        fin >> Courses[i].endD.month;
-        fin >> Courses[i].endD.year;
-        fin >> Courses[i].startH.hour;
-        fin >> Courses[i].startH.minute;
-        fin >> Courses[i].endH.hour;
-        fin >> Courses[i].endH.minute;
-        getline(fin, Courses[i].room);
-        getline(fin, s);
-    }
-    fin.close();
-}
 void Add_Course()
 {
     string academic_year, semester, classname;
@@ -1021,6 +1106,45 @@ void Remove_course()
     else
         cout << "Not found ID of course " << endl;
 }
+//Chuc nang 18: Xoa 1 sv ra khoi khoa hoc
+void Remove_student_from_a_course()
+{
+    string academic_year, semester, classname, courseName, studentID;
+    int numofstudent;
+    student_in_course* student = NULL;
+
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+
+    cout << "Enter semesster :";
+    getline(cin, semester);
+
+    cout << "Enter classname";
+    getline(cin, classname);
+
+    cout << "Enter course ID: ";
+    getline(cin, courseName);
+
+    cout << "Enter ID of student removed";
+    getline(cin, studentID);
+
+    loadStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent);
+
+    bool check = false;
+    for (int i = 0; i < numofstudent; i++)
+    {
+        if (student[i].id == studentID)
+        {
+            student[i].active = -1;
+            check = true;
+        }
+    }
+    if (check == true)
+        saveStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent);
+    else
+        cout << "Student ID is not found";
+}
+
 
 
 

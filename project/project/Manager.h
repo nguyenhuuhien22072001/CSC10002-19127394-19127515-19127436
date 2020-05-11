@@ -37,6 +37,21 @@ struct course {
     times endH;
     string room;
 };
+struct Mark {
+    int lab, midterm, final, bonus;
+};
+struct student_in_course {
+    string Class;
+    string id;
+    string fullname;
+    Date dob;
+    int active;
+    Mark mark;
+    Date date[10];
+    times StartTime[10];
+    times EndTime[10];
+    bool check_in[10];
+};
 void  first_menu();
 void is_log_out();
 void show_menu_staff() ; 
@@ -63,6 +78,13 @@ void manually_add_a_new_student_to_a_class(fstream &fstu , Information person);
 
 //----------------couses-------------------------------------------------------
 
+void loadCourses(string academic_year, string semester, string classname, course*& Courses, int& numofcourses);
+void loadStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course*& student, int& numofstudent);
+
+void saveStudentIntoACourse(Information* student, string filename, int numofstudent, course Course);
+void saveStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course* student, int numofstudent);
+void saveCourses(string academic_year, string semester, string classname, course* Courses, int numofcourse);
+void saveStudentOfCourse(string academic_year, string semester, string classname, course* Courses, int numofcourse);
 //  13.
 void createSemester();
 
@@ -73,7 +95,17 @@ int month2(Date date);
 Date add_date(Date date, int numofday);
 Date first_lesson(Date startD, int dayofweek);
 
-void saveCourses(string academic_year, string semester, string classname, course* Courses, int numofcourse);
-void saveStudentOfCourse(string academic_year, string semester, string classname, course* Courses,int numofcourse);
 void ImportCourses();
+
+//15
+void Add_Course();
+
+//16
+void Edit_a_course();
+
+//17
+void Remove_course();
+
+//18
+void Remove_student_from_a_course();
 #endif
