@@ -58,6 +58,8 @@ void show_menu_staff() ;
 void show_menu_lecturer();
 void show_menu_student();
 void showInfo(Information person);
+void check_password(Information &person , string pass);
+void change_password(Information &person);
 int login(fstream& fstu, fstream& fsta, fstream& flec);
 
 
