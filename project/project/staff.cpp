@@ -1144,8 +1144,46 @@ void Remove_student_from_a_course()
     else
         cout << "Student ID is not found";
 }
+//Chuc nang 19: Them sinh vao khoa hoc
+void Add_student_into_course()
+{
+    string academic_year, semester, classname, courseName;
+    int numofstudent;
+    student_in_course* student = NULL;
 
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
 
+    cout << "Enter semesster :";
+    getline(cin, semester);
 
+    cout << "Enter classname";
+    getline(cin, classname);
 
+    cout << "Enter course ID: ";
+    getline(cin, courseName);
+
+    loadStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent);
+    
+    cout << " Enter Information of this student: " << endl;
+    cout << "Enter class name: ";
+    getline(cin, student[numofstudent].Class);
+    cout << "Enter ID of student: ";
+    getline(cin, student[numofstudent].id);
+    cout << "Enter fullname of student: ";
+    getline(cin, student[numofstudent].fullname);
+    cout << "Enter date of birth: ";
+    cin >> student[numofstudent].dob.date;
+    cin >> student[numofstudent].dob.month;
+    cin >> student[numofstudent].dob.year;
+    student[numofstudent].active = 1;
+    student[numofstudent].mark = student[numofstudent - 1].mark;
+    student[numofstudent].date = student[numofstudent - 1].date;
+    student[numofstudent].StartTime = student[numofstudent - 1].StartTime;
+    student[numofstudent].EndTime = student[numofstudent - 1].EndTime;
+    student[numofstudent].check_in = student[numofstudent - 1].check_in;
+
+    saveStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent + 1);
+
+}
 
