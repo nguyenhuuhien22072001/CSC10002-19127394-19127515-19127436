@@ -313,7 +313,7 @@ void remove_a_element_in_file(const char* filename, int n, Information*& Person,
     fout.close();
 }
 
-void add_student_into_file_student_and_flie_class(Information person)
+void add_student_into_file_student_and_file_class(Information person)
 {
     int n = 0;
     Information* Person;
@@ -352,12 +352,12 @@ void manually_add_a_new_student_to_a_class()
         cout << "   10 - 19CLC8" << endl;
         cout << "   11 - 19CLC9" << endl;
         cout << "   12 - 19CLC10" << endl;
-        cout << "   You option : ";
+        cout << "   Your option : ";
         cin >> n;
         while (n != 0)
         {
             Information person;
-            cout << "       Enter ID : ";
+            cout << "       Enter Student ID : ";
             cin >> person.id;
             cin.ignore();
             cout << "       Enter full name : ";
@@ -409,16 +409,16 @@ void manually_add_a_new_student_to_a_class()
             default:
                 break;
             }
-            add_student_into_file_student_and_flie_class(person);
-            cout << "   You option : ";
+            add_student_into_file_student_and_file_class(person);
+            cout << "   Your option : ";
             cin >> n;
         }
-        cout << "You option : ";
+        cout << "Your option : ";
         cin >> num;
     }
 }
 
-void remove_student_in_file_student_and_flie_class(Information person)
+void remove_student_in_file_student_and_file_class(Information person)
 {
     int n = 0;
     Information* Person;
@@ -441,7 +441,7 @@ void remove_a_student()
     int num;
     cout << "0 - Return" << endl;
     cout << "1 - Remove student" << endl;
-    cout << "You option : ";
+    cout << "Your option : ";
     cin >> num;
     while (num != 0)
     {
@@ -460,12 +460,12 @@ void remove_a_student()
         cout << "   10 - 19CLC8" << endl;
         cout << "   11 - 19CLC9" << endl;
         cout << "   12 - 19CLC10" << endl;
-        cout << "   You option : ";
+        cout << "   Your option : ";
         cin >> n;
         while (n != 0)
         {
             Information person;
-            cout << "       Enter ID : ";
+            cout << "       Enter Student ID : ";
             cin >> person.id;
             switch (n)
             {
@@ -508,16 +508,126 @@ void remove_a_student()
             default:
                 break;
             }
-            remove_student_in_file_student_and_flie_class(person);
-            cout << "   You option : ";
+            remove_student_in_file_student_and_file_class(person);
+            cout << "   Your option : ";
             cin >> n;
         }
-        cout << "You option : ";
+        cout << "Your option : ";
         cin >> num;
     }
 }
+void loadstudent(Information& person) {
+    Information* Person;
+    int n;
+    ifstream f;
+    const char* filename_student = "Student.txt";
+    f.open(filename_student);
+    if (!f.is_open()) {
+        return;
+    }
+    else {
+        load_file(filename_student, n, Person);
+        for (int i = 0; i < n; i++) {
+            if (Person[i].id == person.id) {
+                getline(f, person.Class);
+                getline(f, person.id);
+                getline(f, person.password);
+                getline(f, person.fullname);
+                f >> person.dob.year;
+                f >> person.dob.month;
+                f >> person.dob.date;
+            }
+        }
+        f.close();
+    }
+}
+void change_student_to_another_class()
+{
+    int num;
+    cout << "0 - Return" << endl;
+    cout << "1 - Change Student's Class." << endl;
+    cout << "Your option : ";
+    cin >> num;
+    while (num != 0)
+    {
+        int des;
+        cout << "   Choose class to move in : " << endl;
+        cout << "   0 - Return" << endl;
+        cout << "   1 - 19APCS1" << endl;
+        cout << "   2 - 19APCS2" << endl;
+        cout << "   3 - 19CLC1" << endl;
+        cout << "   4 - 19CLC2" << endl;
+        cout << "   5 - 19CLC3" << endl;
+        cout << "   6 - 19CLC4" << endl;
+        cout << "   7 - 19CLC5" << endl;
+        cout << "   8 - 19CLC6" << endl;
+        cout << "   9 - 19CLC7" << endl;
+        cout << "   10 - 19CLC8" << endl;
+        cout << "   11 - 19CLC9" << endl;
+        cout << "   12 - 19CLC10" << endl;
+        cin >> des;
+        if (des != 0)
+        {
+            Information person;
+            cout << "       Enter Student ID : ";
+            cin >> person.id;
+            loadstudent(person);
+            remove_student_in_file_student_and_file_class(person);
+            switch (des)
+            {
+            case 1:
+                person.Class = "19APCS1";
+                break;
+            case 2:
+                person.Class = "19APCS2";
+                break;
+            case 3:
+                person.Class = "19CLC1";
+                break;
+            case 4:
+                person.Class = "19CLC2";
+                break;
+            case 5:
+                person.Class = "19CLC3";
+                break;
+            case 6:
+                person.Class = "19CLC4";
+                break;
+            case 7:
+                person.Class = "19CLC5";
+                break;
+            case 8:
+                person.Class = "19CLC6";
+                break;
+            case 9:
+                person.Class = "19CLC7";
+                break;
+            case 10:
+                person.Class = "19CLC8";
+                break;
+            case 11:
+                person.Class = "19CLC9";
+                break;
+            case 12:
+                person.Class = "19CLC10";
+                break;
+            default:
+                break;
+            }
+            add_student_into_file_student_and_file_class(person);
+        }
+        cout << "0 - Return" << endl;
+        cout << "1 - Change Student's Class." << endl;
+        cout << "Your option : ";
+        cin >> num;
+    }
+}
+
+
+
 //---------------------------------------------------------------COURSES----------------------------------------------------------------------------------------------------
 //chuc nang 13: Tao mot hoc ky moi
+
 void createSemester()
 {
 	ofstream fout;
@@ -666,6 +776,7 @@ void loadCourses(string academic_year, string semester, string classname, course
     }
     fin.close();
 }
+
 //Dua thong tin cua hoc sinh trong 1 khoa hoc vao mang
 void loadStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course *&student, int& numofstudent)
 {
