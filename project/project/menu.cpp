@@ -152,35 +152,36 @@ void showInfo(Information person) {
 	else
 		cout << "Sinh vien" << endl;
 }
-void check_password(Information &person , string pass)
+void check_password(Information &person , string &pass)
 {
-		cout << "Enter new password : "; 
-		cin >> person.password ; 
-		cout << "Enter again new password : "; 
-		cin >> pass ; 
-		if(pass == person.password)
-		{
-			cout << "Change password successfully ." << endl; 
-			return ; 
-		}
-		else
-		{
-			return check_password(person , pass);
-		}
+        cout << "Enter new password : ";
+        cin >> person.password ;
+        cout << "Enter again new password : ";
+        cin >> pass ;
+        if(pass == person.password)
+        {
+            cout << "Change password successfully ." << endl;
+            return ;
+        }
+        else
+        {
+            cout << "Enter new password failly , Enter again" << endl ;
+            return check_password(person , pass);
+        }
 }
 void change_password(Information &person)
 {
-	string pass ; 
-	cout << "Enter old password : " ; 
-	cin >> pass ; 
-	if(pass == person.password)
-		check_password(person , pass);
-	while(pass != person.password)
-	{
-		cout << "password not match  " << endl ;
-		cout << "Enter old password : " ; 
-		cin >> pass ; 
-		if(pass == person.password)
-			check_password(person , pass);
-	}
-}
+    string pass ;
+    cout << "Enter old password : " ;
+    cin >> pass ;
+    if(pass == person.password)
+        check_password(person , pass);
+        while(pass != person.password)
+            {
+                cout << "password not match  " << endl ;
+                cout << "Enter old password : " ;
+                cin >> pass ;
+                if(pass == person.password)
+                    check_password(person , pass);
+            }
+        }
