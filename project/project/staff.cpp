@@ -138,7 +138,7 @@ void edit_student()
     Information* student;
     cout << "0 - Return" << endl;
     cout << "1 - Edit student " << endl;
-    cout << "You choice : ";
+    cout << "Your choice : ";
     cin >> num1;
     while (num1 != 0)
     {
@@ -333,8 +333,8 @@ void manually_add_a_new_student_to_a_class()
 {
     int num;
     cout << "0 - Return" << endl;
-    cout << "1 - add student" << endl;
-    cout << "You option : ";
+    cout << "1 - Add student" << endl;
+    cout << "Your option : ";
     cin >> num;
     while (num != 0)
     {
@@ -521,24 +521,17 @@ void loadstudent(Information& person) {
     int n;
     ifstream f;
     const char* filename_student = "Student.txt";
-    f.open(filename_student);
-    if (!f.is_open()) {
-        return;
-    }
-    else {
         load_file(filename_student, n, Person);
         for (int i = 0; i < n; i++) {
             if (Person[i].id == person.id) {
-                getline(f, person.Class);
-                getline(f, person.id);
-                getline(f, person.password);
-                getline(f, person.fullname);
-                f >> person.dob.year;
-                f >> person.dob.month;
-                f >> person.dob.date;
-            }
-        }
-        f.close();
+                person.Class = Person[i].Class;
+                person.id = Person[i].id;
+                person.password = Person[i].password;
+                person.fullname = Person[i].fullname;
+                person.dob.year = Person[i].dob.year;
+                person.dob.month = Person[i].dob.month;
+                person.dob.date = Person[i].dob.date;
+            }    
     }
 }
 void change_student_to_another_class()
@@ -622,8 +615,110 @@ void change_student_to_another_class()
         cin >> num;
     }
 }
-
-
+void view_list_of_classes() {
+    int num;
+    cout << "0 - Return" << endl;
+    cout << "1 - View list of classes." << endl; 
+    cout << "Your option : ";
+    cin >> num;
+    while (num != 0)
+    {   
+        cout << "19APCS1" << endl;
+        cout << "19APCS2" << endl;
+        for (int i = 0; i < 10; i++) {
+            cout << "19CLC" << i + 1;
+        }
+        cout << "0 - Return" << endl;
+        cin >> num;
+    }
+}
+void view_list_of_student() {
+    int num;
+    cout << "0 - Return" << endl;
+    cout << "1 - View list of student in a class." << endl;
+    cout << "Your option : ";
+    cin >> num;
+    while (num != 0) {
+        int n;
+        cout << "   Choose any class : " << endl;
+        cout << "   0 - Return" << endl;
+        cout << "   1 - 19APCS1" << endl;
+        cout << "   2 - 19APCS2" << endl;
+        cout << "   3 - 19CLC1" << endl;
+        cout << "   4 - 19CLC2" << endl;
+        cout << "   5 - 19CLC3" << endl;
+        cout << "   6 - 19CLC4" << endl;
+        cout << "   7 - 19CLC5" << endl;
+        cout << "   8 - 19CLC6" << endl;
+        cout << "   9 - 19CLC7" << endl;
+        cout << "   10 - 19CLC8" << endl;
+        cout << "   11 - 19CLC9" << endl;
+        cout << "   12 - 19CLC10" << endl;
+        cin >> n;
+        while (n != 0) {
+            Information* person;
+            int m;
+            string Class;
+            switch (n)
+            {
+            case 1:
+                Class = "19APCS1";
+                break;
+            case 2:
+                Class = "19APCS2";
+                break;
+            case 3:
+                Class = "19CLC1";
+                break;
+            case 4:
+                Class = "19CLC2";
+                break;
+            case 5:
+                Class = "19CLC3";
+                break;
+            case 6:
+                Class = "19CLC4";
+                break;
+            case 7:
+                Class = "19CLC5";
+                break;
+            case 8:
+                Class = "19CLC6";
+                break;
+            case 9:
+                Class = "19CLC7";
+                break;
+            case 10:
+                Class = "19CLC8";
+                break;
+            case 11:
+                Class = "19CLC9";
+                break;
+            case 12:
+                Class = "19CLC10";
+                break;
+            default:
+                break;
+            }
+            string filename_class = "Student-" + Class + ".txt";
+            const char* filename = filename_class.c_str();
+            load_file(filename, m, person);
+            for (int i = 0; i < m; i++) {
+                cout << person[i].Class << endl;
+                cout << person[i].id) << endl;
+                cout << person[i].password << endl;
+                cout << person[i].fullname << endl;
+                cout << person[i].dob.year;
+                cout << person[i].dob.month;
+                cout << person[i].dob.date;
+            }
+            cout << "0 - Return" << endl;
+            cout << "1 - View another list of student in a class." << endl;
+            cout << "Your option : ";
+            cin >> n;
+        }
+    }
+}
 
 //---------------------------------------------------------------COURSES----------------------------------------------------------------------------------------------------
 //chuc nang 13: Tao mot hoc ky moi
