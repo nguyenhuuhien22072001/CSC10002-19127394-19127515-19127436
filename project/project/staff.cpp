@@ -1418,4 +1418,24 @@ void View_list_courses()
         cout << Courses[i].lecture.male;
     }
 }
+//Chuc nang 21: Xem danh sach sinh vien cua khoa hoc
+void View_list_students_of_course()
+{
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    cout << "List of students in course " << coursename << " :" << endl;
+    for (int i = 0; i < numofstudent; i++)
+        cout << student[i].id << "." << student[i].fullname << endl;
+}
 

@@ -116,4 +116,7 @@ void Add_student_into_course();
 
 //20
 void View_list_courses();
+
+//21
+void View_list_students_of_course();
 #endif
