@@ -120,6 +120,6 @@ void View_list_courses();
 //21
 void View_list_students_of_course();
 
-//24
+//24,25
 void View_scoreboard_course();
 #endif

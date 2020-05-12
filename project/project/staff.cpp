@@ -1438,7 +1438,7 @@ void View_list_students_of_course()
     for (int i = 0; i < numofstudent; i++)
         cout << student[i].id << "." << student[i].fullname << endl;
 }
-//Chuc nang 24: Xem bang diem
+//Chuc nang 24,25: Xem bang diem, Luu bang diem vào file csv
 void View_scoreboard_course()
 {
     string academic_year, semester, classname, coursename;
@@ -1461,5 +1461,21 @@ void View_scoreboard_course()
         cout << student[i].id << "\t\t" << student[i].fullname << "\t\t";
         cout << student[i].mark.lab << "\t\t" << student[i].mark.midterm << "\t\t" << student[i].mark.final << "\t\t" << student[i].mark.bonus << endl;
     }
+
+    char filecsv[101];
+    cout << "Enter name of csv file: ";
+    cin.getline(filecsv, 101);
+    ofstream fout;
+    fout.open(filecsv);
+    if (!fout.is_open())
+    {
+        cout << "Can not create csv file";
+        return;
+    }
+    fout << "ID,full name,lab,midterm,final,bonus" << endl;
+    for (int i = 0; i < numofstudent; i++)
+        fout << student[i].id << "," << student[i].fullname << "," << student[i].mark.lab << "," << student[i].mark.midterm << "," << student[i].mark.final << "," << student[i].mark.bonus << endl;
+    fout.close();
 }
+
 
