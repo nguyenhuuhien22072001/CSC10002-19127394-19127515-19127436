@@ -119,4 +119,7 @@ void View_list_courses();
 
 //21
 void View_list_students_of_course();
+
+//24
+void View_scoreboard_course();
 #endif

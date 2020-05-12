@@ -1438,4 +1438,28 @@ void View_list_students_of_course()
     for (int i = 0; i < numofstudent; i++)
         cout << student[i].id << "." << student[i].fullname << endl;
 }
+//Chuc nang 24: Xem bang diem
+void View_scoreboard_course()
+{
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    cout << "Scoreboard of course " << coursename << " :" << endl;
+    cout << "ID\t\tFull name\t\tLab\t\tMidterm\t\tFinal\t\tBonus";
+    for (int i = 0; i < numofstudent; i++)
+    {
+        cout << student[i].id << "\t\t" << student[i].fullname << "\t\t";
+        cout << student[i].mark.lab << "\t\t" << student[i].mark.midterm << "\t\t" << student[i].mark.final << "\t\t" << student[i].mark.bonus << endl;
+    }
+}
 
