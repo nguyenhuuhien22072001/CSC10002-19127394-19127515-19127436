@@ -120,6 +120,24 @@ void View_list_courses();
 //21
 void View_list_students_of_course();
 
-//24,25
+//24
 void View_scoreboard_course();
+
+//25 
+void save_scoreboard();
+
+//26
+void View_attendance_list();
+
+//27
+void save_attendance_list();
+
+//----------------------------------LECTURE---------------------------------------
+// 28=20
+//29=21
+//30=26
+
+//31
+void Edit_an_attendance();
+
 #endif

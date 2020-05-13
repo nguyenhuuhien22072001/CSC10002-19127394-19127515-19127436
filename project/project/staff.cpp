@@ -705,7 +705,7 @@ void view_list_of_student() {
             load_file(filename, m, person);
             for (int i = 0; i < m; i++) {
                 cout << person[i].Class << endl;
-                cout << person[i].id) << endl;
+                cout << person[i].id << endl;
                 cout << person[i].password << endl;
                 cout << person[i].fullname << endl;
                 cout << person[i].dob.year;
@@ -1196,7 +1196,7 @@ void Edit_a_course()
 
                 cout << "Your choice: ";
                 cin >> num;
-                cin.ignore;
+                cin.ignore();
 
                 switch (num)
                 {
@@ -1438,7 +1438,7 @@ void View_list_students_of_course()
     for (int i = 0; i < numofstudent; i++)
         cout << student[i].id << "." << student[i].fullname << endl;
 }
-//Chuc nang 24,25: Xem bang diem, Luu bang diem vào file csv
+//Chuc nang 24: Xem bang diem, Luu bang diem vào file csv
 void View_scoreboard_course()
 {
     string academic_year, semester, classname, coursename;
@@ -1455,12 +1455,29 @@ void View_scoreboard_course()
     int numofstudent;
     loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
     cout << "Scoreboard of course " << coursename << " :" << endl;
-    cout << "ID\t\tFull name\t\tLab\t\tMidterm\t\tFinal\t\tBonus";
+    cout << "ID\t\tFull name\tLab\tMidterm\tFinal\tBonus" << endl;
     for (int i = 0; i < numofstudent; i++)
     {
-        cout << student[i].id << "\t\t" << student[i].fullname << "\t\t";
-        cout << student[i].mark.lab << "\t\t" << student[i].mark.midterm << "\t\t" << student[i].mark.final << "\t\t" << student[i].mark.bonus << endl;
+        cout << student[i].id << "\t\t" << student[i].fullname << "\t";
+        cout << student[i].mark.lab << "\t" << student[i].mark.midterm << "\t" << student[i].mark.final << "\t" << student[i].mark.bonus << endl;
     }
+}
+//Chuc nang 25: Luu bang diem
+void save_scoreboard()
+{
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 
     char filecsv[101];
     cout << "Enter name of csv file: ";
@@ -1477,5 +1494,65 @@ void View_scoreboard_course()
         fout << student[i].id << "," << student[i].fullname << "," << student[i].mark.lab << "," << student[i].mark.midterm << "," << student[i].mark.final << "," << student[i].mark.bonus << endl;
     fout.close();
 }
+//Chuc nang 26: Xem bang diem danh
+void View_export_attendance_list()
+{
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    cout << "Attendance list of course " << coursename << " :" << endl;
+    cout << "ID\t\tFull name\tBuoi 1\tBuoi 2\tBuoi 3\tBuoi 4\tBuoi 5\tBuoi 6\tBuoi 7\tBuoi 8\tBuoi 9\tBuoi 10" << endl;
+    for (int i = 0; i < numofstudent; i++)
+    {
+        cout << student[i].id << "\t\t" << student[i].fullname << "\t";
+        for (int j = 0; j < 10; j++)
+            cout << student[j].check_in[i] << "\t";
+        cout << endl;
+    }
+}
+//Chuc nang 27: Luu vao file csv
+void save_attendance_list()
+{
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+
+    char filecsv[101];
+    cout << "Enter name of csv file: ";
+    cin.getline(filecsv, 101);
+    ofstream fout;
+    fout.open(filecsv);
+    if (!fout.is_open())
+    {
+        cout << "Can not create csv file";
+        return;
+    }
+    fout << "ID,full name,lab,midterm,final,bonus" << endl;
+    for (int i = 0; i < numofstudent; i++)
+        fout << student[i].id << "," << student[i].fullname << "," << student[i].mark.lab << "," << student[i].mark.midterm << "," << student[i].mark.final << "," << student[i].mark.bonus << endl;
+    fout.close();
+}
+
+
 
 
