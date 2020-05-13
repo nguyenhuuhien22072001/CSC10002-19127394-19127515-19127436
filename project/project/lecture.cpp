@@ -27,7 +27,10 @@ void Edit_an_attendance()
         {
             cout << "Enter attendance list of student(1.attendance, 0.absent) " << student[i].fullname << " : ";
             for (int j = 0; j < 10; j++)
+            {
+                cout << "Buoi " << j + 1 << ": ";
                 cin >> student[i].check_in[j];
+            }
         }
     saveStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 }
