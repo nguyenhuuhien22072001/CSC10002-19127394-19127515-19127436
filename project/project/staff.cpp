@@ -719,7 +719,32 @@ void view_list_of_student() {
         }
     }
 }
+void loadStudent(Information*& student, string classname, int& n)
+{
+    fstream f;
+    string temp_1 = "D:\\filetest\\Student-" + classname + ".txt";
+    const char* inputfilename = temp_1.c_str();
+    f.open(inputfilename, ios::in);
 
+    f >> n;
+    cout << n << endl;
+    student = new Information[n];
+    for (int i = 0; i < n; i++)
+    {
+        char a[5];
+        f.getline(a, 3);
+        getline(f ,student[i].Class);
+        getline(f, student[i].id);
+        getline(f, student[i].password);
+        getline(f, student[i].fullname);
+        f >> student[i].dob.year;
+        f >> student[i].dob.month;
+        f >> student[i].dob.date;
+        string s;
+        getline(f, s);
+    }
+    f.close();
+}
 //---------------------------------------------------------------COURSES----------------------------------------------------------------------------------------------------
 //chuc nang 13: Tao mot hoc ky moi
 
@@ -846,9 +871,12 @@ void loadCourses(string academic_year, string semester, string classname, course
     fin.open(filename, ios::in);
     fin >> numofcourses;
     Courses = new course[numofcourses];
+    
     for (int i = 0; i < numofcourses; i++)
     {
-        string s;
+        char a[5];
+        fin.getline(a, 2);
+        //string s;
         getline(fin, Courses[i].ID);
         getline(fin, Courses[i].name);
         getline(fin, Courses[i].classname);
@@ -862,12 +890,14 @@ void loadCourses(string academic_year, string semester, string classname, course
         fin >> Courses[i].endD.date;
         fin >> Courses[i].endD.month;
         fin >> Courses[i].endD.year;
+        fin >> Courses[i].dayofweek;
         fin >> Courses[i].startH.hour;
         fin >> Courses[i].startH.minute;
         fin >> Courses[i].endH.hour;
         fin >> Courses[i].endH.minute;
         getline(fin, Courses[i].room);
-        getline(fin, s);
+        getline(fin, Courses[i].room);
+        //getline(fin, s);
     }
     fin.close();
 }
@@ -886,6 +916,8 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
 
     for (int i = 0; i < numofstudent; i++)
     {
+        char a[5];
+        fin.getline(a, 3);
         getline(fin, student[i].Class);
         getline(fin, student[i].id);
         getline(fin, student[i].fullname);
@@ -980,6 +1012,7 @@ void saveCourses(string academic_year, string semester, string classname, course
 		fout << Courses[i].endD.date << " ";
 		fout << Courses[i].endD.month << " ";
 		fout << Courses[i].endD.year << endl;
+        fout << Courses[i].dayofweek << endl;
 		fout << Courses[i].startH.hour << " ";
 		fout << Courses[i].startH.minute << endl;
 		fout << Courses[i].endH.hour << " ";
@@ -1030,7 +1063,7 @@ void saveStudentOfCourse(string academic_year, string semester, string classname
 	int numofstudent;
 	Information* student = NULL;
 	loadStudent(student, classname, numofstudent);
-
+    cout << numofstudent;
 	for (int i = 0; i < numofcourse; i++)
 	{
 		string filename ="D:\\filetest\\"+ academic_year + "-" + semester + "-" + classname + "-" + Courses[i].name + "-Student.txt";
@@ -1089,10 +1122,10 @@ void ImportCourses()
 		fin >> c;
 		fin >> Courses[numofcourses].endD.month;
 		fin >> c;
-		fin >> Courses[numofcourses].dayofweek;
-		fin >> c;
 		fin >> Courses[numofcourses].endD.year;
 		fin >> c;
+        fin >> Courses[numofcourses].dayofweek;
+        fin >> c;
 		fin >> Courses[numofcourses].startH.hour;
 		fin >> c;
 		fin >> Courses[numofcourses].startH.minute;
@@ -1104,7 +1137,6 @@ void ImportCourses()
 		getline(fin, Courses[numofcourses].room);
 		numofcourses++;
 	}
-
 	saveCourses(academic_year, semester, classname, Courses, numofcourses );
 	saveStudentOfCourse(academic_year, semester, classname, Courses, numofcourses );
 }
@@ -1122,7 +1154,7 @@ void Add_Course()
     cout << "Enter semesster :";
     getline(cin, semester);
 
-    cout << "Enter classname";
+    cout << "Enter classname: ";
     getline(cin, classname);
 
     loadCourses(academic_year, semester, classname, Courses_1, numofcourses);
@@ -1131,23 +1163,39 @@ void Add_Course()
 
     for (int i = 0; i < numofcourses; i++)
         Courses_2[i] = Courses_1[i];
+    cout << "Enter Information of course: " << endl;
+    cout << "   Enter ID of course:";
     getline(cin, Courses_2[numofcourses].ID);
+    cout << "   Enter name of course: ";
     getline(cin, Courses_2[numofcourses].name);
+    cout << "   Enter class name: ";
     getline(cin, Courses_2[numofcourses].classname);
+    cout << "   Enter lecture ID: ";
     getline(cin, Courses_2[numofcourses].lecture.id);
+    cout << "   Enter lecture name: ";
     getline(cin, Courses_2[numofcourses].lecture.fullname);
+    cout << "   Enter degree of lecture:";
     getline(cin, Courses_2[numofcourses].lecture.degree);
+    cout << "   Enter male of lecture (1.female,2.male): ";
     cin >> Courses_2[numofcourses].lecture.male;
+    cout << "   Enter start day of course: ";
     cin >> Courses_2[numofcourses].startD.date;
     cin >> Courses_2[numofcourses].startD.month;
     cin >> Courses_2[numofcourses].startD.year;
+    cout << "   Enter end day of course: ";
     cin >> Courses_2[numofcourses].endD.date;
     cin >> Courses_2[numofcourses].endD.month;
     cin >> Courses_2[numofcourses].endD.year;
+    cout << "   Enter day of week(2.MON,3.TUE,4.WED,5.THU,6.FRI,7.STA,8.SUN): ";
+    cin >> Courses_2[numofcourses].dayofweek;
+    cout << "   Enter start hour: ";
     cin >> Courses_2[numofcourses].startH.hour;
     cin >> Courses_2[numofcourses].startH.minute;
+    cout << "   Enter end hour: ";
     cin >> Courses_2[numofcourses].endH.hour;
     cin >> Courses_2[numofcourses].endH.minute;
+    cout << "   Enter rom: ";
+    cin.ignore();
     getline(cin, Courses_2[numofcourses].room);
 
     saveCourses(academic_year, semester, classname, Courses_2, numofcourses + 1);
@@ -1384,10 +1432,10 @@ void Add_student_into_course()
     cin >> student[numofstudent].dob.year;
     student[numofstudent].active = 1;
     student[numofstudent].mark = student[numofstudent - 1].mark;
-    student[numofstudent].date = student[numofstudent - 1].date;
+    /*student[numofstudent].date = student[numofstudent - 1].date;
     student[numofstudent].StartTime = student[numofstudent - 1].StartTime;
     student[numofstudent].EndTime = student[numofstudent - 1].EndTime;
-    student[numofstudent].check_in = student[numofstudent - 1].check_in;
+    student[numofstudent].check_in = student[numofstudent - 1].check_in;*/
 
     saveStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent + 1);
 

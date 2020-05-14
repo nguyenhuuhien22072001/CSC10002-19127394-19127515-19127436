@@ -2,7 +2,7 @@
 
 int main()
 {
-	first_menu();
+	/*first_menu();
 	Information person ; 
 	fstream fstu, fsta, flec; 
 	int num = login(fstu, fsta, flec);
@@ -155,8 +155,10 @@ int main()
         }
         cout << "You option : " ;
         cin >> num2 ;
-    }
-
+    }*/
+ImportCourses();
+cout << "ADD course: " << endl;
+Add_Course();
 
 return 0;
 
