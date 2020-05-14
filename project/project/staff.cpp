@@ -1483,12 +1483,13 @@ void View_list_courses()
 
     for (int i = 0; i < numofcourses; i++)
     {
-        cout << Courses[i].ID << endl;
-        cout << Courses[i].name << endl;
-        cout << Courses[i].lecture.id << endl;
-        cout << Courses[i].lecture.fullname << endl;
-        cout << Courses[i].lecture.degree << endl;
-        cout << Courses[i].lecture.male;
+        cout << i + 1 << " . ";
+        cout << Courses[i].ID << " , ";
+        cout << Courses[i].name << " , ";
+        cout << Courses[i].lecture.id << " , ";
+        cout << Courses[i].lecture.fullname << " , ";
+        cout << Courses[i].lecture.degree << " , ";
+        cout << Courses[i].lecture.male << endl;
     }
 }
 //Chuc nang 21: Xem danh sach sinh vien cua khoa hoc
@@ -1511,7 +1512,7 @@ void View_list_students_of_course()
     for (int i = 0; i < numofstudent; i++)
         cout << student[i].id << "." << student[i].fullname << endl;
 }
-//Chuc nang 24: Xem bang diem, Luu bang diem vào file csv
+//Chuc nang 24: Xem bang diem
 void View_scoreboard_course()
 {
     string academic_year, semester, classname, coursename;

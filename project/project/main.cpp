@@ -161,7 +161,11 @@ int main()
 //Add_Course();
 //Remove_course();
 //Remove_student_from_a_course();
-Add_student_into_course();
+//Add_student_into_course();
+//View_list_courses();
+//View_list_students_of_course();
+//View_scoreboard_course();
+save_scoreboard();
 return 0;
 
 }
