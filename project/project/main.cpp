@@ -156,11 +156,12 @@ int main()
         cout << "You option : " ;
         cin >> num2 ;
     }*/
-ImportCourses();
+//ImportCourses();
 //cout << "ADD course: " << endl;
 //Add_Course();
 //Remove_course();
-Remove_student_from_a_course();
+//Remove_student_from_a_course();
+Add_student_into_course();
 return 0;
 
 }

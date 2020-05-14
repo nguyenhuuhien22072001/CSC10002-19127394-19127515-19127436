@@ -1427,30 +1427,42 @@ void Add_student_into_course()
     cout << "Enter classname";
     getline(cin, classname);
 
-    cout << "Enter course ID: ";
+    cout << "Enter course name: ";
     getline(cin, courseName);
 
     loadStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent);
     
-    cout << " Enter Information of this student: " << endl;
-    cout << "Enter class name: ";
-    getline(cin, student[numofstudent].Class);
-    cout << "Enter ID of student: ";
-    getline(cin, student[numofstudent].id);
-    cout << "Enter fullname of student: ";
-    getline(cin, student[numofstudent].fullname);
-    cout << "Enter date of birth: ";
-    cin >> student[numofstudent].dob.date;
-    cin >> student[numofstudent].dob.month;
-    cin >> student[numofstudent].dob.year;
-    student[numofstudent].active = 1;
-    student[numofstudent].mark = student[numofstudent - 1].mark;
-    /*student[numofstudent].date = student[numofstudent - 1].date;
-    student[numofstudent].StartTime = student[numofstudent - 1].StartTime;
-    student[numofstudent].EndTime = student[numofstudent - 1].EndTime;
-    student[numofstudent].check_in = student[numofstudent - 1].check_in;*/
+    student_in_course* student_1 = new student_in_course[numofstudent+1];
 
-    saveStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent + 1);
+    for (int i = 0; i < numofstudent; i++)
+        student_1[i] = student[i];
+    cout << " Enter Information of this student: " << endl;
+
+    cout << "Enter class name: ";
+    getline(cin, student_1[numofstudent].Class);
+
+    cout << "Enter ID of student: ";
+    getline(cin, student_1[numofstudent].id);
+
+    cout << "Enter fullname of student: ";
+    getline(cin, student_1[numofstudent].fullname);
+ 
+
+    cout << "Enter date of birth: ";
+    cin >> student_1[numofstudent].dob.year;
+    cin >> student_1[numofstudent].dob.month;
+    cin >> student_1[numofstudent].dob.date;
+
+    student_1[numofstudent].active = 1;
+    student_1[numofstudent].mark = student_1[numofstudent - 1].mark;
+    for (int j = 0; j < 10; j++)
+    {
+        student_1[numofstudent].date[j] = student_1[numofstudent - 1].date[j];
+        student_1[numofstudent].StartTime[j] = student_1[numofstudent - 1].StartTime[j];
+        student_1[numofstudent].EndTime[j] = student_1[numofstudent - 1].EndTime[j];
+        student_1[numofstudent].check_in[j] = student_1[numofstudent - 1].check_in[j];
+    }
+    saveStudentOfACourse(academic_year, semester, classname, courseName, student_1, numofstudent + 1);
 
 }
 //Chuc nang 20: Xem danh sach khoa hoc trong HK hien tai
