@@ -1353,7 +1353,11 @@ void Remove_course()
         if (courseID == Courses[i].ID)
             check = true;
         if (check == true)
+        {
+            if (i == numofcourses - 1)
+                break;
             Courses[i] = Courses[i + 1];
+        }
     }
     if (check == true)
         saveCourses(academic_year, semester, classname, Courses, numofcourses-1);

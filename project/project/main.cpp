@@ -156,10 +156,10 @@ int main()
         cout << "You option : " ;
         cin >> num2 ;
     }*/
-ImportCourses();
-cout << "ADD course: " << endl;
-Add_Course();
-
+//ImportCourses();
+//cout << "ADD course: " << endl;
+//Add_Course();
+Remove_course();
 return 0;
 
 }
