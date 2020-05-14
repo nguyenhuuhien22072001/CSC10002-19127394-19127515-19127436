@@ -910,7 +910,11 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
     ifstream fin;
 
     fin.open(filename);
-
+    if (!fin.is_open())
+    {
+        cout << " Can not open file !!";
+        return;
+    }
     fin >> numofstudent;
     student = new student_in_course[numofstudent];
 
@@ -921,9 +925,9 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
         getline(fin, student[i].Class);
         getline(fin, student[i].id);
         getline(fin, student[i].fullname);
-        fin >> student[i].dob.date;
+        fin >> student[i].dob.year;
         fin >> student[i].dob.month;
-        fin>> student[i].dob.year;
+        fin>> student[i].dob.date;
         fin >> student[i].active;
         fin >> student[i].mark.lab;
         fin >> student[i].mark.midterm;
@@ -931,9 +935,9 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
         fin >> student[i].mark.bonus;
         for (int j = 0; j < 10; j++)
         {
-            fin >> student[i].date[j].date;
-            fin >> student[i].date[j].month;
             fin >> student[i].date[j].year;
+            fin >> student[i].date[j].month;
+            fin >> student[i].date[j].date;
             fin >> student[i].StartTime[j].hour;
             fin >> student[i].StartTime[j].minute;
             fin >> student[i].EndTime[j].hour;
@@ -942,6 +946,10 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
         }
         string s;
         getline(fin, s);
+    }
+    for (int i = 0; i < numofstudent; i++)
+    {
+        cout << student[i].id;
     }
     fin.close();
 }
@@ -965,9 +973,9 @@ void saveStudentOfACourse(string academic_year, string semester, string classnam
         fout << student[i].Class << endl;
         fout << student[i].id << endl;
         fout << student[i].fullname << endl;
-        fout << student[i].dob.date << " ";
+        fout << student[i].dob.year<< " ";
         fout << student[i].dob.month << " ";
-        fout << student[i].dob.year << endl;
+        fout << student[i].dob.date << endl;
         fout << student[i].active << endl;
         fout << student[i].mark.lab << endl;
         fout << student[i].mark.midterm << endl;
@@ -975,15 +983,16 @@ void saveStudentOfACourse(string academic_year, string semester, string classnam
         fout << student[i].mark.bonus << endl;
         for (int j = 0; j < 10; j++)
         {
-            fout << student[i].date[j].date << " ";
-            fout << student[i].date[j].month << " ";
             fout << student[i].date[j].year << " ";
+            fout << student[i].date[j].month << " ";
+            fout << student[i].date[j].date << " ";
             fout << student[i].StartTime[j].hour << " ";
             fout << student[i].StartTime[j].minute << " ";
             fout << student[i].EndTime[j].hour << " ";
             fout << student[i].EndTime[j].minute << " ";
             fout << student[i].check_in[j] << endl;
         }
+        fout << endl;
     }
     fout.close();
 }
@@ -1380,7 +1389,7 @@ void Remove_student_from_a_course()
     cout << "Enter classname";
     getline(cin, classname);
 
-    cout << "Enter course ID: ";
+    cout << "Enter course name: ";
     getline(cin, courseName);
 
     cout << "Enter ID of student removed";

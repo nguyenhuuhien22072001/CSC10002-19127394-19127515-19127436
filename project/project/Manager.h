@@ -50,7 +50,7 @@ struct student_in_course {
     Date date[10];
     times StartTime[10];
     times EndTime[10];
-    bool check_in[10];
+    int check_in[10];
 };
 void  first_menu();
 void is_log_out();
