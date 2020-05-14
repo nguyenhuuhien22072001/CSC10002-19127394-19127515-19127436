@@ -34,3 +34,11 @@ void Edit_an_attendance()
         }
     saveStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 }
+void load_score_board()
+{
+    char inputpath[101];
+    cout << "Enter csv file name: ";
+    cin.getline(inputpath, 101);
+    ifstream fin;
+
+}

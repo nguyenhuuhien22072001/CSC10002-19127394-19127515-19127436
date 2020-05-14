@@ -1539,14 +1539,15 @@ void View_scoreboard_course()
 //Chuc nang 25: Luu bang diem
 void save_scoreboard()
 {
+    cout << "Export score board to csv file: " << endl;
     string academic_year, semester, classname, coursename;
-    cout << "Enter academic year: ";
+    cout << "   Enter academic year: ";
     getline(cin, academic_year);
-    cout << "Enter semester: ";
+    cout << "   Enter semester: ";
     getline(cin, semester);
-    cout << "Enter class name: ";
+    cout << "   Enter class name: ";
     getline(cin, classname);
-    cout << "Enter course name: ";
+    cout << "   Enter course name: ";
     getline(cin, coursename);
 
     student_in_course* student = NULL;
@@ -1554,7 +1555,7 @@ void save_scoreboard()
     loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 
     char filecsv[101];
-    cout << "Enter name of csv file: ";
+    cout << "   Enter name of csv file: ";
     cin.getline(filecsv, 101);
     ofstream fout;
     fout.open(filecsv);
@@ -1569,7 +1570,7 @@ void save_scoreboard()
     fout.close();
 }
 //Chuc nang 26: Xem bang diem danh
-void View_export_attendance_list()
+void View_attendance_list()
 {
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
@@ -1590,7 +1591,7 @@ void View_export_attendance_list()
     {
         cout << student[i].id << "\t\t" << student[i].fullname << "\t";
         for (int j = 0; j < 10; j++)
-            cout << student[j].check_in[i] << "\t";
+            cout << student[i].check_in[j] << "\t";
         cout << endl;
     }
 }
@@ -1621,9 +1622,14 @@ void save_attendance_list()
         cout << "Can not create csv file";
         return;
     }
-    fout << "ID,full name,lab,midterm,final,bonus" << endl;
+    fout << "ID,Full name,Buoi 1,Buoi 2,Buoi 3,Buoi 4,Buoi 5,Buoi 6,Buoi 7,Buoi 8,Buoi 9,Buoi 10" << endl;
     for (int i = 0; i < numofstudent; i++)
-        fout << student[i].id << "," << student[i].fullname << "," << student[i].mark.lab << "," << student[i].mark.midterm << "," << student[i].mark.final << "," << student[i].mark.bonus << endl;
+    {
+        fout << student[i].id << "," << student[i].fullname << ",";
+        for (int j = 0; j < 10; j++)
+            fout << student[i].check_in[j] << ",";
+        fout << endl;
+    }
     fout.close();
 }
 

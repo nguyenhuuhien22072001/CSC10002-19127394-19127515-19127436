@@ -165,7 +165,10 @@ int main()
 //View_list_courses();
 //View_list_students_of_course();
 //View_scoreboard_course();
-save_scoreboard();
+//save_scoreboard();
+//View_attendance_list();
+//save_attendance_list();
+//Edit_an_attendance();
 return 0;
 
 }
