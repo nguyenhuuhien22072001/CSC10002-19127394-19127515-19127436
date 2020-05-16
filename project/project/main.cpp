@@ -171,6 +171,7 @@ int main()
 //Edit_an_attendance();
 //Edit_grade_of_a_student();
 //View_check_in_result();
+View_schedule();
 return 0;
 
 }

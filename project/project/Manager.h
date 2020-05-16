@@ -150,4 +150,7 @@ void Edit_grade_of_a_student();
 //--------------------------------STUDENT-----------------------------------------------
 //35
 void View_check_in_result();
+
+//36
+void View_schedule();
 #endif

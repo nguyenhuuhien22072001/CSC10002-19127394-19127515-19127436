@@ -34,3 +34,33 @@ void View_check_in_result()
     cout << "Invalid ID !!!";
     return;
 }
+//Chuc nang 37. xem thoi khoa bieu
+void View_schedule()
+{
+    string academic_year, semester, classname;
+    int numofcourses;
+    course* Courses = NULL;
+
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+
+    cout << "Enter semesster :";
+    getline(cin, semester);
+
+    cout << "Enter classname: ";
+    getline(cin, classname);
+
+    loadCourses(academic_year, semester, classname, Courses, numofcourses);
+    cout << "ID  name of Course  name of Lecture  Start date  End date  Start Hour  End Hour  Day  Room" << endl;
+    for (int i = 0; i < numofcourses; i++)
+    {
+        cout << Courses[i].ID << "  " << Courses[i].name << "  ";
+        cout << Courses[i].lecture.fullname << "  ";
+        cout << Courses[i].startD.date << "/" << Courses[i].startD.month << "/" << Courses[i].startD.year << "  ";
+        cout << Courses[i].endD.date << "/" << Courses[i].endD.month << "/" << Courses[i].endD.year << "  ";
+        cout << Courses[i].startH.hour << " : " << Courses[i].startH.minute << "  ";
+        cout << Courses[i].endH.hour << " : " << Courses[i].endH.minute << "  ";
+        cout << Courses[i].dayofweek << "  ";
+        cout << Courses[i].room << endl;
+    }
+}
