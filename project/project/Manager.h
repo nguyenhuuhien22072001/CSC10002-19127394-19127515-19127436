@@ -145,4 +145,9 @@ void load_score_board();
 
 //33
 void Edit_grade_of_a_student();
+
+//34=24
+//--------------------------------STUDENT-----------------------------------------------
+//35
+void View_check_in_result();
 #endif

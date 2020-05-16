@@ -169,6 +169,8 @@ int main()
 //View_attendance_list();
 //save_attendance_list();
 //Edit_an_attendance();
+//Edit_grade_of_a_student();
+//View_check_in_result();
 return 0;
 
 }
