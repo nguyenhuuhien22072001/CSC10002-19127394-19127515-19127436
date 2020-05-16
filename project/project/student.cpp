@@ -64,3 +64,37 @@ void View_schedule()
         cout << Courses[i].room << endl;
     }
 }
+//Chuc nang 38: Xem bang diem cua sinh vien
+void View_score_board_myseft()
+{
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+
+    string ID;
+    cout << " Enter ID of student: ";
+    getline(cin, ID);
+
+    for (int i = 0; i < numofstudent; i++)
+    {
+        if (ID == student[i].id)
+        {
+            cout << "Lab\tMidterm\tFinal\tBonus" << endl;
+            cout << student[i].mark.lab << "\t" << student[i].mark.midterm << "\t" << student[i].mark.final << "\t" << student[i].mark.bonus;
+            cout << endl;
+            return;
+        }
+    }
+    cout << "Invalid ID !!!";
+    return;
+}

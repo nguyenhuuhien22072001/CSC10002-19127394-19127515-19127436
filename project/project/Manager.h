@@ -148,9 +148,13 @@ void Edit_grade_of_a_student();
 
 //34=24
 //--------------------------------STUDENT-----------------------------------------------
-//35
+//36
 void View_check_in_result();
 
-//36
+//37
 void View_schedule();
+
+//38
+void View_score_board_myseft();
+
 #endif
