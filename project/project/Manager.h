@@ -140,4 +140,9 @@ void save_attendance_list();
 //31
 void Edit_an_attendance();
 
+//32
+void load_score_board();
+
+//33
+void Edit_grade_of_a_student();
 #endif
