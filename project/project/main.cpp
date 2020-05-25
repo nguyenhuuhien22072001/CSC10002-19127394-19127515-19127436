@@ -270,7 +270,7 @@ int main()
 //Edit_grade_of_a_student();
 //View_check_in_result();
 //View_schedule();
-View_score_board_myseft();
+//View_score_board_myseft();
 return 0;
 
 }

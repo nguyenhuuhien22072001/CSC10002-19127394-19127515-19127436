@@ -43,6 +43,9 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		fstu >> student[i].dob.date;
 		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
+		cin.ignore();
+		string s ; 
+		getline(fstu , s);
 		if (username == student[i].id && password == student[i].password)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
@@ -62,6 +65,8 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		getline(flec, lecture[i].fullname);
 		getline(flec, lecture[i].degree);
 		flec >> lecture[i].male;
+		string s ; 
+		getline(flec , s);
 		if (username == lecture[i].id && password == lecture[i].password)
 		{
 			cout << "Xin chao Giang vien " << student[i].fullname << endl;
@@ -81,6 +86,8 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		getline(fsta, staff[i].password);
 		getline(fsta, staff[i].fullname);
 		fsta >> staff[i].male;
+		string s ; 
+		getline(fsta , s);
 		if (username == staff[i].id && password == staff[i].password)
 		{
 			cout << "Xin chao Giao vu " << student[i].fullname << endl;

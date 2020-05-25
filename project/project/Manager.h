@@ -40,7 +40,7 @@ struct course {
     string room;
 };
 struct Mark {
-    int lab, midterm, final, bonus;
+    double lab, midterm, final, bonus;
 };
 
 struct student_in_course {
