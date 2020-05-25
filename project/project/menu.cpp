@@ -20,7 +20,7 @@ void is_log_out()
     if (n == 0)
        exit ;
 }
-int login(fstream& fstu, fstream& fsta, fstream& flec)
+int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 {
 	string username;
 	string password;
@@ -32,10 +32,10 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 	int n;
 	fstu.open("Student.txt" , ios :: in); 
 	fstu >> n;
+	cin.ignore();
 	Information* student = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
-		cin.ignore();
 		getline(fstu , student[i].Class);
 		getline(fstu, student[i].id);
 		getline(fstu, student[i].password);
@@ -43,13 +43,12 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		fstu >> student[i].dob.date;
 		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
-		// fstu >> student[i].male;
-		// fstu >> student[i].type;
 		if (username == student[i].id && password == student[i].password)
 		{
 			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
-			showInfo(student[i]);
+			person = student[i] ;
 			fstu.close();
+			delete [] student ;
 			return 2;
 		}
 	}
@@ -61,35 +60,33 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 		getline(flec, lecture[i].id);
 		getline(flec, lecture[i].password);
 		getline(flec, lecture[i].fullname);
-		flec>>lecture[i].dob.date;
-		flec >> lecture[i].dob.month;
-		flec >> lecture[i].dob.year;
+		getline(flec, lecture[i].degree);
 		flec >> lecture[i].male;
 		if (username == lecture[i].id && password == lecture[i].password)
 		{
-			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
-			showInfo(lecture[i]);
+			cout << "Xin chao Giang vien " << student[i].fullname << endl;
+			person = lecture[i] ;
 			flec.close();
+			delete [] lecture ;
 			return 1;
 		}
 	}
 	fsta.open("Staff.txt" , ios :: in);
 	fsta >> n;
+	cin.ignore();
 	Information* staff = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
 		getline(fsta, staff[i].id);
 		getline(fsta, staff[i].password);
 		getline(fsta, staff[i].fullname);
-		fsta>>staff[i].dob.date;
-		fsta >> staff[i].dob.month;
-		fsta >> staff[i].dob.year;
 		fsta >> staff[i].male;
 		if (username == staff[i].id && password == staff[i].password)
 		{
-			cout << "Xin chao hoc sinh " << student[i].fullname << endl;
-			showInfo(staff[i]);
+			cout << "Xin chao Giao vu " << student[i].fullname << endl;
+			person = staff[i] ; 
 			fsta.close();
+			delete [] staff ;
 			return 0;
 		}
 	}
@@ -97,6 +94,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec)
 }
 void show_menu_lecturer()
 {
+	cout << "MENU LECTURERS" << endl ;
 	cout << "-1 - Log out." << endl;
     cout << "0 - View list of courses in the current semester."<< endl ;
     cout << "1 - View list of students of a course." << endl ; 
@@ -136,22 +134,47 @@ void show_menu_staff() {
 	cout << "16 - View attendance list of a course. " << endl;
 	cout << "17 - Create / View all lecturers." << endl;
 }
-void showInfo(Information person) {
+void showInfo_staff(Information person) 
+{
 	cout << "Thong tin cua ban: " << endl;
-	cout << "Ngay sinh: " << person.dob.date << "-" << person.dob.month << "-" << person.dob.year << endl;
+	cout << "Ho va ten" <<  person.fullname  << endl ;
 	cout << "Gioi tinh: ";
 	if (person.male == 0)
-		cout << "nam" << endl;
+		cout << "Nam" << endl;
 	else
-		cout << "nu" << endl;
-	cout << "Chuc nang cua ban: ";
-	if (person.type == 0)
-		cout << "Giao vu" << endl;
-	else if (person.type == 1)
-		cout << "Giang vien" << endl;
-	else
-		cout << "Sinh vien" << endl;
+		cout << "Nu" << endl;
+	cout << "Chuc nang cua ban: Giao vu ";
 }
+void showInfo_lecturer(Information person)
+{
+	cout << "Thong tin cua ban: " << endl;
+	cout << "Ho va ten" <<  person.fullname  << endl ;
+	cout << "Gioi tinh: ";
+	if (person.male == 0)
+		cout << "Nam" << endl;
+	else
+		cout << "Nu" << endl;
+	cout << "Chuc nang cua ban: Giang vien " << endl ;
+	cout << "Trinh do: " << person.degree << endl ;
+}
+void showInfo_student(Information person)
+{
+	cout << "Thong tin cua ban: " << endl;
+	cout << "Lop: " << person.Class  << endl ;
+	cout << "ID: " << person.id << endl ;
+	cout << "Ho va ten" <<  person.fullname  << endl ;
+	cout << "Ngay sinh: " << person.dob.year << "-" ;
+	if(person.dob.month < 10)
+		cout << "0" << person.dob.month << "-" ;
+	else	
+		cout << person.dob.month << "-" ;
+	if(person.dob.date < 10)
+		cout << "0" << person.dob.date << endl ;
+	else
+		cout << person.dob.date << endl ;
+	
+}
+
 void check_password(Information &person , string &pass)
 {
         cout << "Enter new password : ";

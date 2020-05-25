@@ -1,32 +1,105 @@
 #include "Manager.h"
+// Chức năng 35 : Check in
+const string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y %m %d %X", &tstruct);
+
+    return buf;
+}
+void check_in(student_in_course &student)
+{
+    string academic_year ; string semester ; string classname ; string courseName;
+    cout << "Enter academic year : " ;
+    getline(cin , academic_year) ;
+    cout << "Enter semester : " ;
+    getline(cin , semester) ;
+    cout << "Enter classname" ; 
+    getline(cin , classname) ; 
+    cout << "Enter courseName: " ;
+    getline(cin , courseName) ;
+    student_in_course * Student ;
+    int numofStudent = 0 ;
+    loadStudentOfACourse(academic_year, semester,classname, courseName, Student, numofStudent);
+    const string time_now = currentDateTime() ;
+    int num[6] ;
+    char *p;
+    int index = 0;
+    p = strtok((char *)time_now.c_str(), ": ");
+    while(p != NULL)
+    {
+            num[index] = atoi(p) ;
+            index++;
+            p = strtok(NULL, ": ");
+    }
+    for(int i = 0 ; i < numofStudent ; i++)
+    {
+        if(Student[i].id == student.id)
+        {
+            for(int j = 0 ; j < 10 ;  j++)
+            {
+                int StartTime = Student[i].StartTime[j].hour*60 + Student[i].StartTime[j].minute ;
+                
+                int EndTime = Student[i].EndTime[j].hour*60 + Student[i].EndTime[j].minute ;
+                if( Student[i].date[j].year == num[0] &&  Student[i].date[j].month == num[1] && Student[i].date[j].date == num[2] &&
+                    StartTime <= (num[3]*60 + num[4]) &&
+                    (num[3]*60 + num[4]) <= EndTime)
+                {
+                    Student[i].check_in[j] = 1 ;
+                    cout << "Check-in successfully" << endl ;
+                    cout << num[0] << "-" << num[1] << "-" << num[2] << " " << Student[i].StartTime[j].hour <<":" << Student[i].StartTime[j].minute << " " << Student[i].EndTime[j].hour << ":" <<Student[i].EndTime[j].minute << " " << Student[i].check_in[j] << endl ;
+                }
+            }
+        }
+    }
+    saveStudentOfACourse(academic_year, semester,classname, courseName, Student, numofStudent);
+    delete [] Student ;
+}
 //Chuc nang 36. xem ket qua diem danh
-void View_check_in_result()
+void print_check_in(int a)
+{
+    if(a < 10)
+        cout <<"0"<< a << " " ;
+    else
+        cout << a << " " ;
+}
+
+void View_check_in_result(student_in_course student)
 {
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
     getline(cin, academic_year);
     cout << "Enter semester: ";
     getline(cin, semester);
-    cout << "Enter class name: ";
-    getline(cin, classname);
+    cout << "Enter classname" ; 
+    getline(cin , classname) ; 
     cout << "Enter course name: ";
     getline(cin, coursename);
 
-    student_in_course* student = NULL;
+    student_in_course* Student = NULL;
     int numofstudent;
-    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
-
-    string ID;
-    cout << " Enter ID of student: ";
-    getline(cin, ID);
+    loadStudentOfACourse(academic_year, semester, classname, coursename, Student, numofstudent);
 
     for (int i = 0; i < numofstudent; i++)
     {
-        if (ID == student[i].id)
+        if (student.id == Student[i].id)
         {
-            cout << "Buoi 1\tBuoi 2\tBuoi 3\tBuoi 4\tBuoi 5\tBuoi 6\tBuoi 7\tBuoi 8\tBuoi 9\tBuoi 10" << endl;
             for (int j = 0; j < 10; j++)
-                cout << student[i].check_in[j] << "\t";
+            {
+                print_check_in(Student[i].date[j].year);
+                print_check_in(Student[i].date[j].month);
+                print_check_in(Student[i].date[j].date);
+                print_check_in(Student[i].StartTime[j].hour);
+                print_check_in(Student[i].StartTime[j].minute);
+                print_check_in(Student[i].EndTime[j].hour);
+                print_check_in(Student[i].EndTime[j].minute);
+                if(Student[i].check_in[j] == -1)
+                    cout << "NO" << endl ;
+                else
+                    cout << "YES" << endl ;
+            }
             cout << endl;
             return;
         }

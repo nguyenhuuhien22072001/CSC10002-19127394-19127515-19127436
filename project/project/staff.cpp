@@ -788,7 +788,7 @@ int find_day_of_week(Date date)
 	else return a + 1;
 }
 //-Tinh so ngay cua thang hai
-int month2(Date date)
+int month2(Date &date)
 {
 	if (date.year % 4 == 0 && date.year % 100 != 0)
 		return 29;
@@ -954,6 +954,56 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
     fin.close();
 }
 //luu thong tin cua sinh vien cua khoa hoc vao khoa hoc
+void save_int_in_flieout(ofstream & fout , int a )
+{
+    if(a < 10)
+        fout << "0" << a << " ";
+    else
+        fout << a << " " ;
+}
+// void saveStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course* student, int numofstudent)
+// {
+//     string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
+//     const char* filename = temp.c_str();
+//     ofstream fout;
+
+//     fout.open(filename,ios::out);
+//     if (!fout.is_open())
+//     {
+//         cout << "fail !!";
+//         return;
+//     }
+
+//     fout << numofstudent<<endl;
+//     for (int i = 0; i < numofstudent; i++)
+//     {
+//         fout << student[i].Class << endl;
+//         fout << student[i].id << endl;
+//         fout << student[i].fullname << endl;
+//         fout << student[i].dob.year<< " ";
+//         fout << student[i].dob.month << " ";
+//         fout << student[i].dob.date << endl;
+//         fout << student[i].active << endl;
+//         fout << student[i].mark.lab << endl;
+//         fout << student[i].mark.midterm << endl;
+//         fout << student[i].mark.final << endl;
+//         fout << student[i].mark.bonus << endl;
+//         for (int j = 0; j < 10; j++)
+//         {
+//             fout << student[i].date[j].year << " ";
+//             fout << student[i].date[j].month << " ";
+//             fout << student[i].date[j].date << " ";
+//             fout << student[i].StartTime[j].hour << " ";
+//             fout << student[i].StartTime[j].minute << " ";
+//             fout << student[i].EndTime[j].hour << " ";
+//             fout << student[i].EndTime[j].minute << " ";
+//             fout << student[i].check_in[j] << endl;
+//         }
+//         fout << endl;
+//     }
+//     fout.close();
+// }
+
 void saveStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course* student, int numofstudent)
 {
     string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
@@ -974,8 +1024,9 @@ void saveStudentOfACourse(string academic_year, string semester, string classnam
         fout << student[i].id << endl;
         fout << student[i].fullname << endl;
         fout << student[i].dob.year<< " ";
-        fout << student[i].dob.month << " ";
-        fout << student[i].dob.date << endl;
+        save_int_in_flieout(fout, student[i].dob.month);
+        save_int_in_flieout(fout, student[i].dob.date);
+        fout << endl ;
         fout << student[i].active << endl;
         fout << student[i].mark.lab << endl;
         fout << student[i].mark.midterm << endl;
@@ -984,12 +1035,12 @@ void saveStudentOfACourse(string academic_year, string semester, string classnam
         for (int j = 0; j < 10; j++)
         {
             fout << student[i].date[j].year << " ";
-            fout << student[i].date[j].month << " ";
-            fout << student[i].date[j].date << " ";
-            fout << student[i].StartTime[j].hour << " ";
-            fout << student[i].StartTime[j].minute << " ";
-            fout << student[i].EndTime[j].hour << " ";
-            fout << student[i].EndTime[j].minute << " ";
+            save_int_in_flieout(fout, student[i].date[j].month);
+            save_int_in_flieout(fout, student[i].date[j].date);
+            save_int_in_flieout(fout, student[i].StartTime[j].hour);
+            save_int_in_flieout(fout, student[i].StartTime[j].minute);
+            save_int_in_flieout(fout, student[i].EndTime[j].hour);
+            save_int_in_flieout(fout, student[i].EndTime[j].minute);
             fout << student[i].check_in[j] << endl;
         }
         fout << endl;
@@ -1150,7 +1201,7 @@ void ImportCourses()
 	saveStudentOfCourse(academic_year, semester, classname, Courses, numofcourses );
 }
 
-//Chuc nang 15: them khoa hoc vào danh sach
+//Chuc nang 15: them khoa hoc vï¿½o danh sach
 void Add_Course()
 {
     string academic_year, semester, classname;

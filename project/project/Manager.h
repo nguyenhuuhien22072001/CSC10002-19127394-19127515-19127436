@@ -5,6 +5,8 @@
 #include <string>
 #include <cstring>
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 using namespace std;
 struct Date {
     int  date, month, year;
@@ -40,6 +42,7 @@ struct course {
 struct Mark {
     int lab, midterm, final, bonus;
 };
+
 struct student_in_course {
     string Class;
     string id;
@@ -57,7 +60,9 @@ void is_log_out();
 void show_menu_staff() ; 
 void show_menu_lecturer();
 void show_menu_student();
-void showInfo(Information person);
+void showInfo_staff(Information person);
+void showInfo_lecturer(Information person);
+void showInfo_student(Information person);
 void check_password(Information &person , string &pass);
 void change_password(Information &person);
 int login(fstream& fstu, fstream& fsta, fstream& flec);
@@ -65,6 +70,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec);
 
 //staff function
 void loadStudent(Information*& student, string classname, int& n);
+void save_int_in_flieout(ofstream & fout , int a );
 void saveStudent(Information* student, string classname, int n);
 void Importstudents();
 void saveStudent(Information* student, string classname, int n);
@@ -76,7 +82,6 @@ void manually_add_a_new_student_to_a_class();
 void remove_a_element_in_file(const char* filename , int n , Information* &Person , Information person);
 void remove_student_in_file_student_and_flie_class(  Information person);
 void remove_a_student();
-void manually_add_a_new_student_to_a_class(fstream &fstu , Information person);
 
 //----------------couses-------------------------------------------------------
 
@@ -93,7 +98,7 @@ void createSemester();
 //  14.
 int sum_day(Date date);
 int find_day_of_week(Date date);
-int month2(Date date);
+int month2(Date &date);
 Date add_date(Date date, int numofday);
 Date first_lesson(Date startD, int dayofweek);
 
@@ -132,6 +137,7 @@ void View_attendance_list();
 //27
 void save_attendance_list();
 
+// chuc nang 17  : Create / View all Lecturers
 //----------------------------------LECTURE---------------------------------------
 // 28=20
 //29=21
@@ -149,12 +155,14 @@ void Edit_grade_of_a_student();
 //34=24
 //--------------------------------STUDENT-----------------------------------------------
 //36
-void View_check_in_result();
+const string currentDateTime() ;
+void check_in(student_in_course &student);
+void print_check_in(int a) ;
+void View_check_in_result(student_in_course student);
 
 //37
 void View_schedule();
 
 //38
 void View_score_board_myseft();
-
 #endif
