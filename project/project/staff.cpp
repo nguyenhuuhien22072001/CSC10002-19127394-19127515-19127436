@@ -947,10 +947,6 @@ void loadStudentOfACourse(string academic_year, string semester, string classnam
         string s;
         getline(fin, s);
     }
-    for (int i = 0; i < numofstudent; i++)
-    {
-        cout << student[i].id;
-    }
     fin.close();
 }
 //luu thong tin cua sinh vien cua khoa hoc vao khoa hoc

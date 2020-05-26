@@ -4,19 +4,20 @@ const string currentDateTime() {
     time_t     now = time(0);
     struct tm  tstruct;
     char       buf[80];
-    tstruct = *localtime(&now);
+    localtime_s(&tstruct, &now);
     strftime(buf, sizeof(buf), "%Y %m %d %X", &tstruct);
 
     return buf;
 }
 void check_in(student_in_course &student)
 {
+    cin.ignore();
     string academic_year ; string semester ; string classname ; string courseName;
     cout << "Enter academic year : " ;
     getline(cin , academic_year) ;
     cout << "Enter semester : " ;
     getline(cin , semester) ;
-    cout << "Enter classname" ; 
+    cout << "Enter classname: " ; 
     getline(cin , classname) ; 
     cout << "Enter courseName: " ;
     getline(cin , courseName) ;
@@ -24,15 +25,17 @@ void check_in(student_in_course &student)
     int numofStudent = 0 ;
     loadStudentOfACourse(academic_year, semester,classname, courseName, Student, numofStudent);
     const string time_now = currentDateTime() ;
+    rsize_t strmax = sizeof((char*)time_now.c_str());
     int num[6] ;
     char *p;
     int index = 0;
-    p = strtok((char *)time_now.c_str(), ": ");
-    while(p != NULL)
+    char* p_ch = strtok_s((char*)time_now.c_str(), ": ", &p);
+
+    while(p_ch != NULL)
     {
-            num[index] = atoi(p) ;
+            num[index] = atoi(p_ch) ;
             index++;
-            p = strtok(NULL, ": ");
+            p_ch=strtok_s(NULL, ": ",&p);
     }
     for(int i = 0 ; i < numofStudent ; i++)
     {
@@ -52,10 +55,13 @@ void check_in(student_in_course &student)
                     cout << num[0] << "-" << num[1] << "-" << num[2] << " " << Student[i].StartTime[j].hour <<":" << Student[i].StartTime[j].minute << " " << Student[i].EndTime[j].hour << ":" <<Student[i].EndTime[j].minute << " " << Student[i].check_in[j] << endl ;
                 }
             }
+            saveStudentOfACourse(academic_year, semester, classname, courseName, Student, numofStudent);
+            delete[] Student;
+            return;
         }
     }
-    saveStudentOfACourse(academic_year, semester,classname, courseName, Student, numofStudent);
-    delete [] Student ;
+    cout << "Check-in failed !!!" << endl;
+    return;
 }
 //Chuc nang 36. xem ket qua diem danh
 void print_check_in(int a)
@@ -68,6 +74,7 @@ void print_check_in(int a)
 
 void View_check_in_result(student_in_course student)
 {
+    cin.ignore();
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
     getline(cin, academic_year);

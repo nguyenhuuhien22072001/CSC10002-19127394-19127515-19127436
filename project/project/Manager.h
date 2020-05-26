@@ -40,7 +40,7 @@ struct course {
     string room;
 };
 struct Mark {
-    int lab, midterm, final, bonus;
+    double lab, midterm, final, bonus;
 };
 
 struct student_in_course {
@@ -55,6 +55,8 @@ struct student_in_course {
     times EndTime[10];
     int check_in[10];
 };
+
+int login(fstream& fstu, fstream& fsta, fstream& flec, Information& person);
 void  first_menu();
 void is_log_out();
 void show_menu_staff() ; 
@@ -65,7 +67,7 @@ void showInfo_lecturer(Information person);
 void showInfo_student(Information person);
 void check_password(Information &person , string &pass);
 void change_password(Information &person);
-int login(fstream& fstu, fstream& fsta, fstream& flec);
+
 
 
 //staff function

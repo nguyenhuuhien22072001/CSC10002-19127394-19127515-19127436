@@ -3,13 +3,17 @@
 int main()
 {
 	first_menu();
+    cin.ignore();
 	Information person ; 
 	fstream fstu, fsta, flec; 
-	int num = login(fstu, fsta, flec);
+    /*fstu.open("D:\\filetest\\Student.txt",ios::in);
+    fsta.open("D:\\filetest\\Staff.txt",ios::in);
+    flec.open("D:\\filetest\\Lecture.txt",ios::in);*/
+	int num = login(fstu, fsta, flec,person);
 	while(num == -1)
     {
         cout << "log in fail , try again ." << endl ;
-        num = login(fstu, fsta, flec);
+        num = login(fstu, fsta, flec,person);
     }
     int num2 ;
     cout << "1 - Show menu" << endl ;
@@ -270,7 +274,7 @@ int main()
 //Edit_grade_of_a_student();
 //View_check_in_result();
 //View_schedule();
-View_score_board_myseft();
+//View_score_board_myseft();
 return 0;
 
 }

@@ -30,12 +30,19 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 	getline(cin , password); 
 
 	int n;
-	fstu.open("Student.txt" , ios :: in); 
+	fstu.open("D:\\filetest\\Student.txt" , ios :: in); 
+	if (!fstu.is_open())
+	{
+		cout << " fail";
+		return -1;
+	}
 	fstu >> n;
-	cin.ignore();
+	cout << n;
 	Information* student = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
+		char a[5];
+		fstu.getline(a, 3);
 		getline(fstu , student[i].Class);
 		getline(fstu, student[i].id);
 		getline(fstu, student[i].password);
@@ -52,11 +59,15 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 			return 2;
 		}
 	}
-	flec.open("Lecture.txt");
+	fstu.close();
+	delete[] student;
+	flec.open("D:\\filetest\\Lecture.txt");
 	flec >> n;
 	Information* lecture = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
+		char a[5];
+		flec.getline(a, 3);
 		getline(flec, lecture[i].id);
 		getline(flec, lecture[i].password);
 		getline(flec, lecture[i].fullname);
@@ -71,12 +82,15 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 			return 1;
 		}
 	}
-	fsta.open("Staff.txt" , ios :: in);
+	flec.close();
+	delete[] lecture;
+	fsta.open("D:\\filetest\\Staff.txt" , ios :: in);
 	fsta >> n;
-	cin.ignore();
 	Information* staff = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
+		char a[5];
+		fsta.getline(a, 3);
 		getline(fsta, staff[i].id);
 		getline(fsta, staff[i].password);
 		getline(fsta, staff[i].fullname);
@@ -84,12 +98,14 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		if (username == staff[i].id && password == staff[i].password)
 		{
 			cout << "Xin chao Giao vu " << student[i].fullname << endl;
-			person = staff[i] ; 
+			person = staff[i] ;
 			fsta.close();
 			delete [] staff ;
 			return 0;
 		}
 	}
+	fsta.close();
+	delete[] staff;
 	return -1;
 }
 void show_menu_lecturer()
