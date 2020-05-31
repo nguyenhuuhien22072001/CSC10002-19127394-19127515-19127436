@@ -28,8 +28,66 @@ void load_file(const char* filename, int& n, Information*& Person)
     }
     fin.close();
 }
+void saveStudent(Information* student, const char * filename, int n)
+{
+    fstream f;
+    f.open(filename, ios::out);
+    if(!f)
+    {
+        cout << "Can you not create file" << endl ;
+        return ;
+    }
+    f << n << endl;
+    for (int i = 0; i < n; i++)
+    {
+        f << student[i].Class << endl;
+        f << student[i].id << endl;
+        f  << student[i].password << endl ;
+        f << student[i].fullname << endl;
+        f << student[i].dob.year << " ";
+        if (student[i].dob.month < 10)
+            f << "0" << student[i].dob.month << " ";
+        else
+            f << student[i].dob.month << " ";
+        if (student[i].dob.date < 10)
+            f << "0" << student[i].dob.date << endl << endl;
+        else
+            f << student[i].dob.date << endl << endl;
+    }
+    f.close();
 
-void Importstudents()//filename= "student_"
+}
+// void saveAppenceStudent(Information* student, const char * filename, int n)
+// {
+//     fstream f;
+//     f.open(filename, ios::app);
+//     if(!f)
+//     {
+//         cout << "Can you not create file" << endl ;
+//         return ;
+//     }
+//     f << n << endl;
+//     for (int i = 0; i < n; i++)
+//     {
+//         f << student[i].Class << endl;
+//         f << student[i].id << endl;
+//         f << student[i].password << endl ;
+//         f << student[i].fullname << endl;
+//         f << student[i].dob.year << " ";
+//         if (student[i].dob.month < 10)
+//             f << "0" << student[i].dob.month << " ";
+//         else
+//             f << student[i].dob.month << " ";
+//         if (student[i].dob.date < 10)
+//             f << "0" << student[i].dob.date << endl << endl;
+//         else
+//             f << student[i].dob.date << endl << endl;
+//     }
+//     f.close();
+
+// }
+
+void Importstudents()//filename= "student-"
 {
     int num1;
     cout << "0 - Return" << endl;
@@ -73,7 +131,7 @@ void Importstudents()//filename= "student_"
             fcsv >> c;
             fcsv >> student[n].dob.date;
             fcsv >> c;
-            getline(fcsv, student[n].Class, '\n');
+            getline(fcsv, student[n].Class);
             string date;
             string month;
             if (student[n].dob.month < 10)
@@ -84,12 +142,14 @@ void Importstudents()//filename= "student_"
                 date = "0" + to_string(student[n].dob.date);
             else
                 date = to_string(student[n].dob.date);
-            student[n].password = to_string(student[n].dob.year) + month + date;
+            student[n].password =  date + month + to_string(student[n].dob.year) ;
             student[n].type = 2;
             n++;
         }
-
-        saveStudent(student, classname, n - 1);
+        string temp_1 = "Student-" + classname + ".txt";
+        const char* filename1 = temp_1.c_str();
+        
+        saveStudent(student, filename1, n - 1);
         fcsv.close();
 
         cout << "You option : ";
@@ -97,52 +157,20 @@ void Importstudents()//filename= "student_"
     }
 }
 
-void saveStudent(Information* student, string classname, int n)
-{
-    fstream f;
-    string temp_1 = "Student-" + classname + ".txt";
-    const char* outputfilename = temp_1.c_str();
-    f.open(outputfilename, ios::out);
-
-    f << n << endl;
-    for (int i = 0; i < n; i++)
-    {
-        f << student[i].Class << endl;
-        f << student[i].id << endl;
-        f << student[i].dob.year;
-        if (student[i].dob.month < 10)
-            f << "0" << student[i].dob.month;
-        else
-            f << student[i].dob.month;
-        if (student[i].dob.date < 10)
-            f << "0" << student[i].dob.date << endl;
-        else
-            f << student[i].dob.date << endl;
-        f << student[i].fullname << endl;
-        f << student[i].dob.year << " ";
-        if (student[i].dob.month < 10)
-            f << "0" << student[i].dob.month << " ";
-        else
-            f << student[i].dob.month << " ";
-        if (student[i].dob.date < 10)
-            f << "0" << student[i].dob.date << endl << endl;
-        else
-            f << student[i].dob.date << endl << endl;
-    }
-    f.close();
-}
-
 void edit_student()
 {
     int num1;
-    Information* student;
     cout << "0 - Return" << endl;
     cout << "1 - Edit student " << endl;
     cout << "Your choice : ";
     cin >> num1;
     while (num1 != 0)
     {
+        Information* student;
         int n = 0;
+        Information * Student ;
+        int N = 0 ;
+        int k = -1 ;
         string classname;
         string username;
         cin.ignore();
@@ -151,12 +179,15 @@ void edit_student()
         cout << "   Enter username(ID): ";
         getline(cin, username);
         string temp_1 = "Student-" + classname + ".txt";
-        const char* filename = temp_1.c_str();
-        load_file(filename, n, student);
+        const char* filename1 = temp_1.c_str();
+        load_file(filename1, n, student);
+        const char * filename2 = "Student.txt";
+        load_file(filename2 ,N , Student );
         for (int i = 0; i < n; i++)
         {
             if (username == student[i].id)
             {
+                k = i ;
                 int num2;
                 cout << "   Edit student : " << endl;
                 cout << "   0. Return." << endl;
@@ -199,15 +230,32 @@ void edit_student()
                     cout << "   Your choice:";
                     cin >> num2;
                 }
+                break ;
             }
         }
-        saveStudent(student, classname, n);
-        delete[] student;
+        if(k == -1)
+        {
+            cout << "           ID fail" << endl ;
+        }
+        else
+        {
+            for(int i =0  ; i < N ; i++)
+            {
+                if(Student[i].id == student[k].id)
+                {
+                    Student[i] = student[k] ;
+                    break ;
+                }
+            }
+            saveStudent(student, filename1, n);
+            saveStudent(Student , filename2 , N);
+            delete[] student;
+            delete [] Student ;
+        }
         cout << "Your choice: ";
         cin >> num1;
     }
 }
-
 void add_a_element_in_file(const char* filename, int n, Information*& Person, Information person)
 {
     fstream fout;
@@ -223,15 +271,7 @@ void add_a_element_in_file(const char* filename, int n, Information*& Person, In
         {
             fout << Person[i].Class << endl;
             fout << Person[i].id << endl;
-            fout << Person[i].dob.year;
-            if (Person[i].dob.month < 10)
-                fout << "0" << Person[i].dob.month;
-            else
-                fout << Person[i].dob.month;
-            if (Person[i].dob.date < 10)
-                fout << "0" << Person[i].dob.date << endl;
-            else
-                fout << Person[i].dob.date << endl; // 20012207
+            fout << Person[i].password << endl ;
             fout << Person[i].fullname << endl;
             fout << Person[i].dob.year << " ";
             if (Person[i].dob.month < 10)
@@ -244,17 +284,11 @@ void add_a_element_in_file(const char* filename, int n, Information*& Person, In
                 fout << Person[i].dob.date << endl;
             fout << endl;
         }
+
+
         fout << person.Class << endl;
         fout << person.id << endl;
-        fout << person.dob.year;
-        if (person.dob.month < 10)
-            fout << "0" << person.dob.month;
-        else
-            fout << person.dob.month;
-        if (person.dob.date < 10)
-            fout << "0" << person.dob.date << endl;
-        else
-            fout << person.dob.date << endl;
+        fout << person.password << endl ;
         fout << person.fullname << endl;
         fout << person.dob.year << " ";
         if (person.dob.month < 10)
@@ -287,15 +321,7 @@ void remove_a_element_in_file(const char* filename, int n, Information*& Person,
             {
                 fout << Person[i].Class << endl;
                 fout << Person[i].id << endl;
-                fout << Person[i].dob.year;
-                if (Person[i].dob.month < 10)
-                    fout << "0" << Person[i].dob.month;
-                else
-                    fout << Person[i].dob.month;
-                if (Person[i].dob.date < 10)
-                    fout << "0" << Person[i].dob.date << endl;
-                else
-                    fout << Person[i].dob.date << endl;
+                fout << Person[i].password << endl ;
                 fout << Person[i].fullname << endl;
                 fout << Person[i].dob.year << " ";
                 if (Person[i].dob.month < 10)
@@ -362,12 +388,23 @@ void manually_add_a_new_student_to_a_class()
             cin.ignore();
             cout << "       Enter full name : ";
             getline(cin, person.fullname);
-            cout << "       Enter  year of birth :";
+            cout << "       Enter year of birth :";
             cin >> person.dob.year;
             cout << "       Enter month of birth : ";
             cin >> person.dob.month;
             cout << "       Enter date of birth : ";
             cin >> person.dob.date;
+            string date;
+            string month;
+            if (person.dob.month < 10)
+                month = "0" + to_string(person.dob.month);
+            else
+                month = to_string(person.dob.month);
+            if (person.dob.date < 10)
+                date = "0" + to_string(person.dob.date);
+            else
+                date = to_string(person.dob.date);
+            person.password =  date + month +to_string(person.dob.year);
             switch (n)
             {
             case 1:
@@ -437,6 +474,85 @@ void remove_student_in_file_student_and_file_class(Information person)
 }
 
 void remove_a_student()
+{
+    int num;
+    cout << "0 - Return" << endl;
+    cout << "1 - Remove student" << endl;
+    cout << "Your option : ";
+    cin >> num;
+    while (num != 0)
+    {
+        int n;
+        cout << "   Remove student : " << endl;
+        cout << "   0 - Return" << endl;
+        cout << "   1 - 19APCS1" << endl;
+        cout << "   2 - 19APCS2" << endl;
+        cout << "   3 - 19CLC1" << endl;
+        cout << "   4 - 19CLC2" << endl;
+        cout << "   5 - 19CLC3" << endl;
+        cout << "   6 - 19CLC4" << endl;
+        cout << "   7 - 19CLC5" << endl;
+        cout << "   8 - 19CLC6" << endl;
+        cout << "   9 - 19CLC7" << endl;
+        cout << "   10 - 19CLC8" << endl;
+        cout << "   11 - 19CLC9" << endl;
+        cout << "   12 - 19CLC10" << endl;
+        cout << "   Your option : ";
+        cin >> n;
+        while (n != 0)
+        {
+            Information person;
+            cout << "       Enter Student ID : ";
+            cin >> person.id;
+            switch (n)
+            {
+            case 1:
+                person.Class = "19APCS1";
+                break;
+            case 2:
+                person.Class = "19APCS2";
+                break;
+            case 3:
+                person.Class = "19CLC1";
+                break;
+            case 4:
+                person.Class = "19CLC2";
+                break;
+            case 5:
+                person.Class = "19CLC3";
+                break;
+            case 6:
+                person.Class = "19CLC4";
+                break;
+            case 7:
+                person.Class = "19CLC5";
+                break;
+            case 8:
+                person.Class = "19CLC6";
+                break;
+            case 9:
+                person.Class = "19CLC7";
+                break;
+            case 10:
+                person.Class = "19CLC8";
+                break;
+            case 11:
+                person.Class = "19CLC9";
+                break;
+            case 12:
+                person.Class = "19CLC10";
+                break;
+            default:
+                break;
+            }
+            remove_student_in_file_student_and_file_class(person);
+            cout << "   Your option : ";
+            cin >> n;
+        }
+        cout << "Your option : ";
+        cin >> num;
+    }
+}
 {
     int num;
     cout << "0 - Return" << endl;

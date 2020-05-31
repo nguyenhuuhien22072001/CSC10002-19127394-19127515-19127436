@@ -47,9 +47,9 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		getline(fstu, student[i].id);
 		getline(fstu, student[i].password);
 		getline(fstu, student[i].fullname);
-		fstu >> student[i].dob.date;
-		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
+		fstu >> student[i].dob.month;
+		fstu >> student[i].dob.date;
 		cin.ignore();
 		string s ; 
 		getline(fstu , s);
@@ -221,13 +221,45 @@ void change_password(Information &person)
     cout << "Enter old password : " ;
     cin >> pass ;
     if(pass == person.password)
+    
         check_password(person , pass);
-        while(pass != person.password)
-            {
-                cout << "password not match  " << endl ;
-                cout << "Enter old password : " ;
-                cin >> pass ;
-                if(pass == person.password)
-                    check_password(person , pass);
-            }
+     while(pass != person.password)
+       {
+            cout << "password not match  " << endl ;
+            cout << "Enter old password : " ;
+            cin >> pass ;
+            if(pass == person.password)
+                check_password(person , pass);
         }
+
+}
+void saveChangePassword(Information person)
+{
+    int n = 0 ;
+    Information * Student ;
+    string temp = "Student-" + person.Class + ".txt" ;
+    const char * filename1 = temp.c_str() ;
+    load_file(filename1, n, Student) ;
+    for(int i = 0 ; i < n ; i++)
+    {
+        if(Student[i].id == person.id)
+        {
+            Student[i].password = person.password ;
+            break ;
+        }
+    }
+    saveStudent(Student, filename1 ,  n) ;
+    delete [] Student ;
+    const char * filename2 = "Student.txt" ;
+    load_file(filename2, n, Student);
+    for(int i = 0 ; i < n ; i++)
+    {
+        if(Student[i].id == person.id)
+        {
+            Student[i].password = person.password ;
+            break ;
+        }
+    }
+    saveStudent(Student, filename2, n);
+    delete [] Student ;
+}

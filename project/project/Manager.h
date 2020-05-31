@@ -67,15 +67,15 @@ void showInfo_lecturer(Information person);
 void showInfo_student(Information person);
 void check_password(Information &person , string &pass);
 void change_password(Information &person);
-
+void saveChangePassword(Information person);
 
 
 //staff function
-void loadStudent(Information*& student, string classname, int& n);
-void save_int_in_flieout(ofstream & fout , int a );
-void saveStudent(Information* student, string classname, int n);
+// void loadStudent(Information*& student, string classname, int& n);
+// void save_int_in_flieout(ofstream & fout , int a );
+// void saveStudent(Information* student, string classname, int n);
 void Importstudents();
-void saveStudent(Information* student, string classname, int n);
+void saveStudent(Information* student, const char * filename, int n);
 void edit_student();
 void load_file( const char * filename , int &n ,  Information* &Person );
 void add_a_element_in_file( const char * filename ,  int n , Information* &Person , Information person);
