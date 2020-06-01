@@ -3,6 +3,11 @@ void load_file(const char* filename, int& n, Information*& Person)
 {
     fstream fin;
     fin.open(filename, ios::in);
+    if(fin.eof())
+    {
+        n = 0 ;
+        Person = NULL ;
+    }
     if (!fin.is_open())
     {
         cout << "           Can you not create file " << endl;
@@ -57,35 +62,6 @@ void saveStudent(Information* student, const char * filename, int n)
     f.close();
 
 }
-// void saveAppenceStudent(Information* student, const char * filename, int n)
-// {
-//     fstream f;
-//     f.open(filename, ios::app);
-//     if(!f)
-//     {
-//         cout << "Can you not create file" << endl ;
-//         return ;
-//     }
-//     f << n << endl;
-//     for (int i = 0; i < n; i++)
-//     {
-//         f << student[i].Class << endl;
-//         f << student[i].id << endl;
-//         f << student[i].password << endl ;
-//         f << student[i].fullname << endl;
-//         f << student[i].dob.year << " ";
-//         if (student[i].dob.month < 10)
-//             f << "0" << student[i].dob.month << " ";
-//         else
-//             f << student[i].dob.month << " ";
-//         if (student[i].dob.date < 10)
-//             f << "0" << student[i].dob.date << endl << endl;
-//         else
-//             f << student[i].dob.date << endl << endl;
-//     }
-//     f.close();
-
-// }
 
 void Importstudents()//filename= "student-"
 {
@@ -106,7 +82,7 @@ void Importstudents()//filename= "student-"
 
         ifstream fcsv;
 
-        string temp = "Student-" + classname + ".csv";
+        string temp = "D:\\filetest\\Student-" + classname + ".csv";
         const char* inputfilename = temp.c_str();
 
         fcsv.open(inputfilename);
@@ -146,7 +122,7 @@ void Importstudents()//filename= "student-"
             student[n].type = 2;
             n++;
         }
-        string temp_1 = "Student-" + classname + ".txt";
+        string temp_1 = "D:\\filetest\\Student-" + classname + ".txt";
         const char* filename1 = temp_1.c_str();
         
         saveStudent(student, filename1, n - 1);
@@ -178,10 +154,10 @@ void edit_student()
         getline(cin, classname);
         cout << "   Enter username(ID): ";
         getline(cin, username);
-        string temp_1 = "Student-" + classname + ".txt";
+        string temp_1 = "D:\\filetest\\Student-" + classname + ".txt";
         const char* filename1 = temp_1.c_str();
         load_file(filename1, n, student);
-        const char * filename2 = "Student.txt";
+        const char * filename2 = "D:\\filetest\\Student.txt";
         load_file(filename2 ,N , Student );
         for (int i = 0; i < n; i++)
         {
@@ -256,6 +232,7 @@ void edit_student()
         cin >> num1;
     }
 }
+
 void add_a_element_in_file(const char* filename, int n, Information*& Person, Information person)
 {
     fstream fout;
@@ -343,12 +320,12 @@ void add_student_into_file_student_and_file_class(Information person)
 {
     int n = 0;
     Information* Person;
-    const char* filename_student = "Student.txt";
+    const char* filename_student = "D:\\filetest\\Student.txt";
     load_file(filename_student, n, Person);
     add_a_element_in_file(filename_student, n, Person, person);
     delete[] Person;
 
-    string filename_class = "Student-" + person.Class + ".txt";
+    string filename_class = "D:\\filetest\\Student-" + person.Class + ".txt";
     const char* filename = filename_class.c_str();
     load_file(filename, n, Person);
     add_a_element_in_file(filename, n, Person, person);
@@ -459,12 +436,12 @@ void remove_student_in_file_student_and_file_class(Information person)
 {
     int n = 0;
     Information* Person;
-    const char* filename_student = "Student.txt";
+    const char* filename_student = "D:\\filetest\\Student.txt";
     load_file(filename_student, n, Person);
     remove_a_element_in_file(filename_student, n, Person, person);
     delete[] Person;
 
-    string filename_class = "Student-" + person.Class + ".txt";
+    string filename_class = "D:\\filetest\\Student-" + person.Class + ".txt";
     const char* filename = filename_class.c_str();
 
     load_file(filename, n, Person);
@@ -553,101 +530,16 @@ void remove_a_student()
         cin >> num;
     }
 }
-{
-    int num;
-    cout << "0 - Return" << endl;
-    cout << "1 - Remove student" << endl;
-    cout << "Your option : ";
-    cin >> num;
-    while (num != 0)
-    {
-        int n;
-        cout << "   Remove student : " << endl;
-        cout << "   0 - Return" << endl;
-        cout << "   1 - 19APCS1" << endl;
-        cout << "   2 - 19APCS2" << endl;
-        cout << "   3 - 19CLC1" << endl;
-        cout << "   4 - 19CLC2" << endl;
-        cout << "   5 - 19CLC3" << endl;
-        cout << "   6 - 19CLC4" << endl;
-        cout << "   7 - 19CLC5" << endl;
-        cout << "   8 - 19CLC6" << endl;
-        cout << "   9 - 19CLC7" << endl;
-        cout << "   10 - 19CLC8" << endl;
-        cout << "   11 - 19CLC9" << endl;
-        cout << "   12 - 19CLC10" << endl;
-        cout << "   Your option : ";
-        cin >> n;
-        while (n != 0)
-        {
-            Information person;
-            cout << "       Enter Student ID : ";
-            cin >> person.id;
-            switch (n)
-            {
-            case 1:
-                person.Class = "19APCS1";
-                break;
-            case 2:
-                person.Class = "19APCS2";
-                break;
-            case 3:
-                person.Class = "19CLC1";
-                break;
-            case 4:
-                person.Class = "19CLC2";
-                break;
-            case 5:
-                person.Class = "19CLC3";
-                break;
-            case 6:
-                person.Class = "19CLC4";
-                break;
-            case 7:
-                person.Class = "19CLC5";
-                break;
-            case 8:
-                person.Class = "19CLC6";
-                break;
-            case 9:
-                person.Class = "19CLC7";
-                break;
-            case 10:
-                person.Class = "19CLC8";
-                break;
-            case 11:
-                person.Class = "19CLC9";
-                break;
-            case 12:
-                person.Class = "19CLC10";
-                break;
-            default:
-                break;
-            }
-            remove_student_in_file_student_and_file_class(person);
-            cout << "   Your option : ";
-            cin >> n;
-        }
-        cout << "Your option : ";
-        cin >> num;
-    }
-}
 void loadstudent(Information& person) {
     Information* Person;
     int n;
-    ifstream f;
-    const char* filename_student = "Student.txt";
+    const char* filename_student = "D:\\filetest\\Student.txt";
         load_file(filename_student, n, Person);
         for (int i = 0; i < n; i++) {
             if (Person[i].id == person.id) {
-                person.Class = Person[i].Class;
-                person.id = Person[i].id;
-                person.password = Person[i].password;
-                person.fullname = Person[i].fullname;
-                person.dob.year = Person[i].dob.year;
-                person.dob.month = Person[i].dob.month;
-                person.dob.date = Person[i].dob.date;
-            }    
+                person = Person[i];
+                break;
+            }
     }
 }
 void change_student_to_another_class()
