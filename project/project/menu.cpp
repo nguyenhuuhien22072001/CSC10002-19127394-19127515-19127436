@@ -4,20 +4,9 @@ void  first_menu()
    int n ;  
    cout << "0 - Log out" << endl ; 
    cout << "1 - Log in " << endl ; 
-   cout << " You option :" << endl ;
+   cout << " You option :" ;
    cin >> n  ; 
    if (n == 0)
-       exit ;
-}
-
-void is_log_out()
-{
-    int n ; 
-    cout << "0 - Log out" << endl ; 
-    cout << "1 - Continue " << endl ; 
-    cout << " You option :" << endl ;
-    cin >> n ; 
-    if (n == 0)
        exit ;
 }
 int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
@@ -37,7 +26,6 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		return -1;
 	}
 	fstu >> n;
-	cout << n;
 	Information* student = new Information[n];
 	for (int i = 0; i < n; i++)
 	{
@@ -50,7 +38,6 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		fstu >> student[i].dob.date;
 		fstu >> student[i].dob.month;
 		fstu >> student[i].dob.year;
-		cin.ignore();
 		string s ; 
 		getline(fstu , s);
 		if (username == student[i].id && password == student[i].password)
@@ -80,7 +67,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		getline(flec , s);
 		if (username == lecture[i].id && password == lecture[i].password)
 		{
-			cout << "Xin chao Giang vien " << student[i].fullname << endl;
+			cout << "Xin chao Giang vien " << lecture[i].fullname << endl;
 			person = lecture[i] ;
 			flec.close();
 			delete [] lecture ;
@@ -104,7 +91,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		getline(fsta , s);
 		if (username == staff[i].id && password == staff[i].password)
 		{
-			cout << "Xin chao Giao vu " << student[i].fullname << endl;
+			cout << "Xin chao Giao vu " << staff[i].fullname << endl;
 			person = staff[i] ;
 			fsta.close();
 			delete [] staff ;
@@ -230,4 +217,4 @@ void change_password(Information &person)
                 if(pass == person.password)
                     check_password(person , pass);
             }
-        }
+}

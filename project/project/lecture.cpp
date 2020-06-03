@@ -1,8 +1,10 @@
 #include "Manager.h"
 //---------------------------------------------LECTURE--------------------------------------
-//Chuc nang 31
-void Edit_an_attendance()
+//Chuc nag 29
+void View_list_students_of_course_lecture(Information lecture)
 {
+    course* Courses = NULL;
+    int num_of_courses;
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
     getline(cin, academic_year);
@@ -10,9 +12,97 @@ void Edit_an_attendance()
     getline(cin, semester);
     cout << "Enter class name: ";
     getline(cin, classname);
+    loadCourses(academic_year, semester, classname, Courses, num_of_courses);
+
     cout << "Enter course name: ";
     getline(cin, coursename);
+    bool check = false;
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        if (Courses[i].lecture.id == lecture.id && Courses[i].name == coursename)
+            check = true;
+    }
+    if (check == false)
+    {
+        cout << " This class is not yours";
+        return;
+    }
 
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    cout << "List of students in course " << coursename << " :" << endl;
+    for (int i = 0; i < numofstudent; i++)
+        cout << student[i].id << "." << student[i].fullname << endl;
+}
+//Chuc nang 30
+void View_attendance_list_of_course(Information lecture)
+{
+    course* Courses = NULL;
+    int num_of_courses;
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    loadCourses(academic_year, semester, classname, Courses, num_of_courses);
+
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+    bool check = false;
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        if (Courses[i].lecture.id == lecture.id && Courses[i].name == coursename)
+            check = true;
+    }
+    if (check == false)
+    {
+        cout << " This class is not yours";
+        return;
+    }
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    cout << "Attendance list of course " << coursename << " :" << endl;
+    cout << "ID\t\tFull name\tBuoi 1\tBuoi 2\tBuoi 3\tBuoi 4\tBuoi 5\tBuoi 6\tBuoi 7\tBuoi 8\tBuoi 9\tBuoi 10" << endl;
+    for (int i = 0; i < numofstudent; i++)
+    {
+        cout << student[i].id << "\t\t" << student[i].fullname << "\t";
+        for (int j = 0; j < 10; j++)
+            cout << student[i].check_in[j] << "\t";
+        cout << endl;
+    }
+}
+//Chuc nang 31
+void Edit_an_attendance(Information lecture)
+{
+    course* Courses = NULL;
+    int num_of_courses;
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    loadCourses(academic_year, semester, classname, Courses, num_of_courses);
+
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+    bool check = false;
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        if (Courses[i].lecture.id == lecture.id && Courses[i].name == coursename)
+            check = true;
+     }
+    if (check == false)
+    {
+        cout << " This class is not yours";
+        return;
+    }
     student_in_course* student = NULL;
     int numofstudent;
     loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
@@ -35,8 +125,10 @@ void Edit_an_attendance()
     saveStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 }
 //Chuc nang 32
-void load_score_board()
+void load_score_board(Information lecture)
 {
+    course* Courses = NULL;
+    int num_of_courses;
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
     getline(cin, academic_year);
@@ -44,8 +136,21 @@ void load_score_board()
     getline(cin, semester);
     cout << "Enter class name: ";
     getline(cin, classname);
+    loadCourses(academic_year, semester, classname, Courses, num_of_courses);
+
     cout << "Enter course name: ";
     getline(cin, coursename);
+    bool check = false;
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        if (Courses[i].lecture.id == lecture.id && Courses[i].name == coursename)
+            check = true;
+    }
+    if (check == false)
+    {
+        cout << " This class is not yours" << endl;
+        return;
+    }
 
     student_in_course* student = NULL;
     int numofstudent;
@@ -83,8 +188,10 @@ void load_score_board()
     saveStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 }
 //Chuc nang 33
-void Edit_grade_of_a_student()
+void Edit_grade_of_a_student(Information lecture)
 {
+    course* Courses = NULL;
+    int num_of_courses;
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
     getline(cin, academic_year);
@@ -92,8 +199,21 @@ void Edit_grade_of_a_student()
     getline(cin, semester);
     cout << "Enter class name: ";
     getline(cin, classname);
+    loadCourses(academic_year, semester, classname, Courses, num_of_courses);
+
     cout << "Enter course name: ";
     getline(cin, coursename);
+    bool check = false;
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        if (Courses[i].lecture.id == lecture.id && Courses[i].name == coursename)
+            check = true;
+    }
+    if (check == false)
+    {
+        cout << " This class is not yours";
+        return;
+    }
 
     student_in_course* student = NULL;
     int numofstudent;
@@ -103,7 +223,7 @@ void Edit_grade_of_a_student()
     cout << " Enter ID of student: ";
     getline(cin, ID);
 
-    bool check=false;
+    check=false;
     for (int i = 0; i < numofstudent; i++)
     {
         if (ID == student[i].id)
@@ -128,5 +248,44 @@ void Edit_grade_of_a_student()
     {
         cout << " Invalid ID !!";
         return;
+    }
+}
+//Chuc nang 34
+void View_scoreboard_course_lecture(Information lecture)
+{
+    course* Courses = NULL;
+    int num_of_courses;
+    string academic_year, semester, classname, coursename;
+    cout << "Enter academic year: ";
+    getline(cin, academic_year);
+    cout << "Enter semester: ";
+    getline(cin, semester);
+    cout << "Enter class name: ";
+    getline(cin, classname);
+    loadCourses(academic_year, semester, classname, Courses, num_of_courses);
+
+    cout << "Enter course name: ";
+    getline(cin, coursename);
+    bool check = false;
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        if (Courses[i].lecture.id == lecture.id && Courses[i].name == coursename)
+            check = true;
+    }
+    if (check == false)
+    {
+        cout << " This class is not yours";
+        return;
+    }
+
+    student_in_course* student = NULL;
+    int numofstudent;
+    loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    cout << "Scoreboard of course " << coursename << " :" << endl;
+    cout << "ID\t\tFull name\tLab\tMidterm\tFinal\tBonus" << endl;
+    for (int i = 0; i < numofstudent; i++)
+    {
+        cout << student[i].id << "\t\t" << student[i].fullname << "\t";
+        cout << student[i].mark.lab << "\t" << student[i].mark.midterm << "\t" << student[i].mark.final << "\t" << student[i].mark.bonus << endl;
     }
 }

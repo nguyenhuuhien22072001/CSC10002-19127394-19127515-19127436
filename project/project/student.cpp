@@ -11,7 +11,6 @@ const string currentDateTime() {
 }
 void check_in(student_in_course &student)
 {
-    cin.ignore();
     string academic_year ; string semester ; string classname ; string courseName;
     cout << "Enter academic year : " ;
     getline(cin , academic_year) ;
@@ -74,7 +73,6 @@ void print_check_in(int a)
 
 void View_check_in_result(student_in_course student)
 {
-    cin.ignore();
     string academic_year, semester, classname, coursename;
     cout << "Enter academic year: ";
     getline(cin, academic_year);

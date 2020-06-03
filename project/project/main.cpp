@@ -6,37 +6,43 @@ int main()
     cin.ignore();
 	Information person ; 
 	fstream fstu, fsta, flec; 
-    /*fstu.open("D:\\filetest\\Student.txt",ios::in);
-    fsta.open("D:\\filetest\\Staff.txt",ios::in);
-    flec.open("D:\\filetest\\Lecture.txt",ios::in);*/
-	int num = login(fstu, fsta, flec,person);
-	while(num == -1)
+	int type = login(fstu, fsta, flec,person);
+    //cout << flush;
+	while(type == -1)
     {
         cout << "log in fail , try again ." << endl ;
-        num = login(fstu, fsta, flec,person);
+        system("pause");
+        system("cls");
+        first_menu();
+        cin.ignore();
+        type = login(fstu, fsta, flec,person);
     }
-    int num2 ;
+    int option_login ;
     cout << "1 - Show menu" << endl ;
     cout << "2 - View Profile" << endl ;
     cout << "3 - Change password" << endl ;
     cout << "4 - Log out" << endl ;
     cout << "You option : " ;
-    cin  >> num2 ;
-    while(num2 != 4)
+    cin  >> option_login;
+    cin.ignore();
+    cout << endl;
+    while(option_login != 4)
     {
-        if (num == 0)
+        if (type == 0)
         {
-            switch(num2)
+            switch(option_login)
                 {
                     case 1 :
                     {
                         show_menu_staff();
-                        int num3 ;
+                        int option_staff ;
                         cout << "You option : ";
-                        cin >> num3 ;
-                        while(num3 != -1)
+                        cin >> option_staff;
+                        cin.ignore();
+                        cout << endl;
+                        while(option_staff != -1)
                         {
-                            switch(num3)
+                            switch(option_staff)
                             {
                                 case 0 :
                                 {
@@ -60,7 +66,7 @@ int main()
                                 }
                                 case 4 :
                                 {
-                                    
+                                    change_student_to_another_class();
                                     break ;
                                 }
                                 case 5 :
@@ -131,6 +137,13 @@ int main()
                                 default :
                                     break ;
                             }
+                            system("pause");
+                            system("cls");
+                            show_menu_staff();
+                            cout << "You option : ";
+                            cin >> option_staff;
+                            cin.ignore();
+                            cout << endl;
                         }
                     }
                     case 2 :
@@ -143,18 +156,20 @@ int main()
                         break ;
                 }
         }
-        else if (num == 1)
+        else if (type == 1)
         {
-            switch(num2)
+            switch(option_login)
             {
                 case 1 :
                     show_menu_lecturer();
-                    int num3 ; 
+                    int option_lecture ; 
                     cout << "You option : " ; 
-                    cin >> num3 ;
-                    while(num3 != -1)
+                    cin >> option_lecture;
+                    cin.ignore();
+                    cout << endl;
+                    while(option_lecture != -1)
                     {
-                        switch(num3)
+                        switch(option_lecture)
                         {
                             case 0 : 
                             {
@@ -168,22 +183,22 @@ int main()
                             }
                             case 2 : 
                             {
-                                View_attendance_list();
+                                View_attendance_list_of_course(person);
                                 break ; 
                             }
                             case 3 : 
                             {
-                                Edit_an_attendance();
+                                Edit_an_attendance(person);
                                 break ; 
                             }
                             case 4 : 
                             {
-                                load_score_board();
+                                load_score_board(person);
                                 break ; 
                             }
                             case 5 : 
                             {
-                                Edit_grade_of_a_student();
+                                Edit_grade_of_a_student(person);
                                 break ; 
                             }
                             case 6 : 
@@ -194,8 +209,13 @@ int main()
                             default : 
                                 break ; 
                         }
-                        cout << "You option : " ; 
-                        cin >> num3 ;
+                        system("pause");
+                        system("cls");
+                        show_menu_lecturer();
+                        cout << "You option : ";
+                        cin >> option_lecture;
+                        cin.ignore();
+                        cout << endl;
                     }
                     break ;
                 case 2 :
@@ -203,22 +223,27 @@ int main()
                     break ;
                 case 3 :
                     change_password(person);
+                    break;
+                default:
+                    break;
             }
         }
         else
         {
             student_in_course student ;
             student.id = person.id ;
-            switch(num2)
+            switch(option_login)
             {
                 case 1 :
                     show_menu_student();
-                    int num3 ; 
+                    int option_student ; 
                     cout << "You option : "; 
-                    cin >> num3 ;
-                    while(num3 != -1)
+                    cin >> option_student;
+                    cin.ignore();
+                    cout << endl;
+                    while(option_student != -1)
                     {
-                        switch(num3)
+                        switch(option_student)
                         {
                             case 0 : 
                             {
@@ -244,8 +269,12 @@ int main()
                             default:
                                 break ;
                         }
-                        cout << "You option : " ; 
-                        cin >> num3 ;
+                        system("pause");
+                        system("cls");
+                        show_menu_student();
+                        cout << "You option : ";
+                        cin >> option_student;
+                        cin.ignore();
                     }
                     break ;
                 case 2 :
@@ -253,10 +282,20 @@ int main()
                     break ;
                 case 3 :
                     change_password(person);
+                default:
+                    break;
             }
         }
-        cout << "You option : " ;
-        cin >> num2 ;
+        system("pause");
+        system("cls");
+        cout << "1 - Show menu" << endl;
+        cout << "2 - View Profile" << endl;
+        cout << "3 - Change password" << endl;
+        cout << "4 - Log out" << endl;
+        cout << "You option : ";
+        cin >> option_login;
+        cin.ignore();
+        cout << endl;
     }
 //ImportCourses();
 //cout << "ADD course: " << endl;

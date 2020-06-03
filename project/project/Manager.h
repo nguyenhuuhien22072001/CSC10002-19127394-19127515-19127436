@@ -71,6 +71,8 @@ void change_password(Information &person);
 
 
 //staff function
+void change_student_to_another_class();
+
 void loadStudent(Information*& student, string classname, int& n);
 void save_int_in_flieout(ofstream & fout , int a );
 void saveStudent(Information* student, string classname, int n);
@@ -142,19 +144,23 @@ void save_attendance_list();
 // chuc nang 17  : Create / View all Lecturers
 //----------------------------------LECTURE---------------------------------------
 // 28=20
-//29=21
-//30=26
+//29
+void View_list_students_of_course_lecture(Information lecture);
+
+//30
+void View_attendance_list_of_course(Information lecture);
 
 //31
-void Edit_an_attendance();
+void Edit_an_attendance(Information lecture);
 
 //32
-void load_score_board();
+void load_score_board(Information lecture);
 
 //33
-void Edit_grade_of_a_student();
+void Edit_grade_of_a_student(Information lecture);
 
-//34=24
+//34
+void View_scoreboard_course_lecture(Information lecture);
 //--------------------------------STUDENT-----------------------------------------------
 //36
 const string currentDateTime() ;
