@@ -38,8 +38,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		fstu >> student[i].dob.year;
 
 		fstu >> student[i].dob.month;
-		fstu >> student[i].dob.date;
-		cin.ignore();
+		fstu >> student[i].dob.date ;
 
 		string s ; 
 		getline(fstu , s);
