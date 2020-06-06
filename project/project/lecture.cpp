@@ -24,7 +24,7 @@ void View_list_students_of_course_lecture(Information lecture)
     }
     if (check == false)
     {
-        cout << " This class is not yours";
+        cout << " This class is not yours" << endl;
         return;
     }
 
@@ -34,6 +34,8 @@ void View_list_students_of_course_lecture(Information lecture)
     cout << "List of students in course " << coursename << " :" << endl;
     for (int i = 0; i < numofstudent; i++)
         cout << student[i].id << "." << student[i].fullname << endl;
+    delete[]Courses;
+    delete[]student;
 }
 //Chuc nang 30
 void View_attendance_list_of_course(Information lecture)
@@ -59,7 +61,7 @@ void View_attendance_list_of_course(Information lecture)
     }
     if (check == false)
     {
-        cout << " This class is not yours";
+        cout << " This class is not yours" << endl;
         return;
     }
 
@@ -75,6 +77,8 @@ void View_attendance_list_of_course(Information lecture)
             cout << student[i].check_in[j] << "\t";
         cout << endl;
     }
+    delete[]Courses;
+    delete[]student;
 }
 //Chuc nang 31
 void Edit_an_attendance(Information lecture)
@@ -100,7 +104,7 @@ void Edit_an_attendance(Information lecture)
      }
     if (check == false)
     {
-        cout << " This class is not yours";
+        cout << " This class is not yours" << endl;
         return;
     }
     student_in_course* student = NULL;
@@ -123,6 +127,8 @@ void Edit_an_attendance(Information lecture)
             }
         }
     saveStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+    delete[]Courses;
+    delete[]student;
 }
 //Chuc nang 32
 void load_score_board(Information lecture)
@@ -186,6 +192,9 @@ void load_score_board(Information lecture)
     }
 
     saveStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
+
+    delete[]Courses;
+    delete[]student;
 }
 //Chuc nang 33
 void Edit_grade_of_a_student(Information lecture)
@@ -220,7 +229,7 @@ void Edit_grade_of_a_student(Information lecture)
     loadStudentOfACourse(academic_year, semester, classname, coursename, student, numofstudent);
 
     string ID;
-    cout << " Enter ID of student: ";
+    cout << " Enter ID of student: " << endl;
     getline(cin, ID);
 
     check=false;
@@ -249,6 +258,8 @@ void Edit_grade_of_a_student(Information lecture)
         cout << " Invalid ID !!";
         return;
     }
+    delete[]Courses;
+    delete[]student;
 }
 //Chuc nang 34
 void View_scoreboard_course_lecture(Information lecture)
@@ -274,7 +285,7 @@ void View_scoreboard_course_lecture(Information lecture)
     }
     if (check == false)
     {
-        cout << " This class is not yours";
+        cout << " This class is not yours" << endl;
         return;
     }
 
@@ -288,4 +299,6 @@ void View_scoreboard_course_lecture(Information lecture)
         cout << student[i].id << "\t\t" << student[i].fullname << "\t";
         cout << student[i].mark.lab << "\t" << student[i].mark.midterm << "\t" << student[i].mark.final << "\t" << student[i].mark.bonus << endl;
     }
+    delete[]Courses;
+    delete[]student;
 }

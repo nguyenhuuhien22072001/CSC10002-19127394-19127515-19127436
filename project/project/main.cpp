@@ -2,7 +2,13 @@
 
 int main()
 {
-	first_menu();
+    int n;
+    cout << "0 - Log out" << endl;
+    cout << "Press any number - Log in " << endl;
+    cout << " You option :";
+    cin >> n;
+    if (n == 0)
+        return 0;
     cin.ignore();
 	Information person ; 
 	fstream fstu, fsta, flec; 
@@ -126,13 +132,27 @@ int main()
                                 }
                                 case 16 :
                                 {
-                                    View_attendance_list();
+                                    View_scoreboard_course();
                                     break ;
                                 }
                                 case 17 :
                                 {
-
+                                    save_scoreboard();
                                     break ;
+                                }
+                                case 18:
+                                {
+                                    View_attendance_list();
+                                    break;
+                                }
+                                case 19:
+                                {
+                                    save_attendance_list();
+                                    break;
+                                }
+                                case 20:
+                                {
+                                    break;
                                 }
                                 default :
                                     break ;
@@ -145,13 +165,18 @@ int main()
                             cin.ignore();
                             cout << endl;
                         }
+                        break;
                     }
                     case 2 :
-                        showInfo_staff(person) ;
-                        break ;
+                    {
+                        showInfo_staff(person);
+                        break;
+                    }
                     case 3 :
+                    {
                         change_password(person);
-                        break ;
+                        break;
+                    }
                     default :
                         break ;
                 }
@@ -178,7 +203,7 @@ int main()
                             }
                             case 1 : 
                             {
-                                View_list_students_of_course();
+                                View_list_students_of_course_lecture(person);
                                 break ; 
                             }
                             case 2 : 
@@ -203,7 +228,7 @@ int main()
                             }
                             case 6 : 
                             {
-                                View_scoreboard_course();
+                                View_scoreboard_course_lecture(person);
                                 break ; 
                             }
                             default : 
