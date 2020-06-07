@@ -1,13 +1,7 @@
 #include "Manager.h"
 void  first_menu()
 {
-   int n ;  
-   cout << "0 - Log out" << endl ; 
-   cout << "1 - Log in " << endl ; 
-   cout << " You option :" ;
-   cin >> n  ; 
-   if (n == 0)
-       exit ;
+   
 }
 int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 {
@@ -36,10 +30,8 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 		getline(fstu, student[i].password);
 		getline(fstu, student[i].fullname);
 		fstu >> student[i].dob.year;
-
 		fstu >> student[i].dob.month;
-		fstu >> student[i].dob.date ;
-
+		fstu >> student[i].dob.date;
 		string s ; 
 		getline(fstu , s);
 		if (username == student[i].id && password == student[i].password)
@@ -53,7 +45,11 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 	}
 	fstu.close();
 	delete[] student;
+<<<<<<< HEAD
 	flec.open("D:\\filetest\\Lecture.txt" , ios :: in);
+=======
+	flec.open("D:\\filetest\\Lecture.txt",ios::in);
+>>>>>>> 164529f5a40c2b5dc0ec3511f4d662afc88ae5af
 	flec >> n;
 	Information* lecture = new Information[n];
 	for (int i = 0; i < n; i++)
@@ -143,8 +139,11 @@ void show_menu_staff() {
 	cout << "13 - Add a specific student to a course." << endl;
 	cout << "14 - View list of courses in the current semester. " << endl;
 	cout << "15 - View list of students of a course." << endl;
-	cout << "16 - View attendance list of a course. " << endl;
-	cout << "17 - Create / View all lecturers." << endl;
+	cout << "16 - View scoreborad of a course. " << endl;
+	cout << "17 - Save scoreboard into csv file. " << endl;
+	cout << "18 - View attendance list of a course. " << endl;
+	cout << "19 - Save list of atandance into csv file. " << endl;
+	cout << "20 - Create / View all lecturers." << endl;
 }
 void showInfo_staff(Information person) 
 {
@@ -233,7 +232,10 @@ void change_password(Information &person)
 				check_password(person, pass);
 		}
 	}
-
+	else
+	{
+		cout << "Your password is not invalid !!!" << endl;
+	}
 }
 void saveChangePassword(Information person)
 {

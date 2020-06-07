@@ -779,7 +779,6 @@ void loadStudent(Information*& student, string classname, int& n)
     f.open(inputfilename, ios::in);
 
     f >> n;
-    cout << n << endl;
     student = new Information[n];
     for (int i = 0; i < n; i++)
     {
@@ -823,7 +822,7 @@ int sum_day(Date date)
 	{
 		if (i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12)
 			sum += 31;
-		if (i == 4 || i == 6 || i == 9 || i == 11)
+		else if (i == 4 || i == 6 || i == 9 || i == 11)
 			sum += 30;
 		else
 			sum += month2(date);
@@ -833,7 +832,7 @@ int sum_day(Date date)
 //-Cho ngay thang nam tim thu may trong tuan: 2:MON,3:TUE,4:WED,5:THU,6:FRI,7:SAT,8:SUN
 int find_day_of_week(Date date)
 {
-	int sum = (date.year - 1) / 1 + (date.year - 1) / 4 - (date.year - 1) / 100 + (date.year - 1) / 400 + sum_day(date);
+	int sum = (date.year+2000 - 1) / 1 + (date.year+2000 - 1) / 4 - (date.year+2000 - 1) / 100 + (date.year+2000 - 1) / 400 + sum_day(date);
 	int a = sum % 7;
 	if (a == 0)
 		return 8;
@@ -842,7 +841,7 @@ int find_day_of_week(Date date)
 //-Tinh so ngay cua thang hai
 int month2(Date &date)
 {
-	if (date.year % 4 == 0 && date.year % 100 != 0)
+	if ((date.year+2000) % 4 == 0 && (date.year+2000) % 100 != 0)
 		return 29;
 	return 28;
 }
@@ -921,6 +920,11 @@ void loadCourses(string academic_year, string semester, string classname, course
     const char* filename = temp.c_str();
     fstream fin;
     fin.open(filename, ios::in);
+    if (!fin.is_open())
+    {
+        cout << "Can not open file " << endl;
+        return;
+    }
     fin >> numofcourses;
     Courses = new course[numofcourses];
     
@@ -1127,12 +1131,12 @@ void saveStudentOfCourse(string academic_year, string semester, string classname
 	int numofstudent;
 	Information* student = NULL;
 	loadStudent(student, classname, numofstudent);
-    cout << numofstudent;
 	for (int i = 0; i < numofcourse; i++)
 	{
 		string filename ="D:\\filetest\\"+ academic_year + "-" + semester + "-" + classname + "-" + Courses[i].name + "-Student.txt";
 		saveStudentIntoACourse(student, filename, numofstudent, Courses[i]);
 	}
+    delete[]student;
 }
 
 //Chuc nang 14: them khoa hoc
@@ -1145,8 +1149,9 @@ void ImportCourses()
 	getline(cin, semester, '\n');
 	cout << "Enter class:";
 	getline(cin, classname, '\n');
-	cout << "Enter file name:";
-	getline(cin, filename, '\n');
+	/*cout << "Enter file name:";
+	getline(cin, filename, '\n');*/
+    filename ="D:\\filetest\\"+ classname + "-" + "Schedule.csv";
 
 	course Courses[100];
 
@@ -1186,7 +1191,7 @@ void ImportCourses()
 		fin >> c;
 		fin >> Courses[numofcourses].endD.month;
 		fin >> c;
-		fin >> Courses[numofcourses].endD.year;
+        fin >> Courses[numofcourses].endD.year;
 		fin >> c;
         fin >> Courses[numofcourses].dayofweek;
         fin >> c;
@@ -1263,6 +1268,15 @@ void Add_Course()
     getline(cin, Courses_2[numofcourses].room);
 
     saveCourses(academic_year, semester, classname, Courses_2, numofcourses + 1);
+    int numofstudent;
+    Information* student = NULL;
+    loadStudent(student, classname, numofstudent);
+
+    string filename = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + Courses_2[numofcourses].name + "-Student.txt";
+    saveStudentIntoACourse(student, filename, numofstudent, Courses_2[numofcourses]);
+
+    delete[]Courses_1;
+    delete[]Courses_2;
 }
 //Chuc nang 16: chinh sua khoa hoc
 void Edit_a_course()
@@ -1390,6 +1404,7 @@ void Edit_a_course()
 
     }
     saveCourses(academic_year, semester, classname, Courses, numofcourses);
+    delete[]Courses;
 }
 //Chuc nang 17: Xoa khoa hoc
 void Remove_course()
@@ -1427,6 +1442,7 @@ void Remove_course()
         saveCourses(academic_year, semester, classname, Courses, numofcourses-1);
     else
         cout << "Not found ID of course " << endl;
+    delete[]Courses;
 }
 //Chuc nang 18: Xoa 1 sv ra khoi khoa hoc
 void Remove_student_from_a_course()
@@ -1447,7 +1463,7 @@ void Remove_student_from_a_course()
     cout << "Enter course name: ";
     getline(cin, courseName);
 
-    cout << "Enter ID of student removed";
+    cout << "Enter ID of student removed: ";
     getline(cin, studentID);
 
     loadStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent);
@@ -1465,6 +1481,7 @@ void Remove_student_from_a_course()
         saveStudentOfACourse(academic_year, semester, classname, courseName, student, numofstudent);
     else
         cout << "Student ID is not found";
+    delete[]student;
 }
 //Chuc nang 19: Them sinh vao khoa hoc
 void Add_student_into_course()
@@ -1518,7 +1535,7 @@ void Add_student_into_course()
         student_1[numofstudent].check_in[j] = student_1[numofstudent - 1].check_in[j];
     }
     saveStudentOfACourse(academic_year, semester, classname, courseName, student_1, numofstudent + 1);
-
+    delete[]student;
 }
 //Chuc nang 20: Xem danh sach khoa hoc trong HK hien tai
 void View_list_courses()
@@ -1546,6 +1563,7 @@ void View_list_courses()
         cout << Courses[i].lecture.degree << " , ";
         cout << Courses[i].lecture.male << endl;
     }
+    delete[]Courses;
 }
 //Chuc nang 21: Xem danh sach sinh vien cua khoa hoc
 void View_list_students_of_course()
@@ -1566,6 +1584,7 @@ void View_list_students_of_course()
     cout << "List of students in course " << coursename << " :" << endl;
     for (int i = 0; i < numofstudent; i++)
         cout << student[i].id << "." << student[i].fullname << endl;
+    delete[]student;
 }
 //Chuc nang 24: Xem bang diem
 void View_scoreboard_course()
@@ -1590,6 +1609,7 @@ void View_scoreboard_course()
         cout << student[i].id << "\t\t" << student[i].fullname << "\t";
         cout << student[i].mark.lab << "\t" << student[i].mark.midterm << "\t" << student[i].mark.final << "\t" << student[i].mark.bonus << endl;
     }
+    delete[]student;
 }
 //Chuc nang 25: Luu bang diem
 void save_scoreboard()
@@ -1623,6 +1643,7 @@ void save_scoreboard()
     for (int i = 0; i < numofstudent; i++)
         fout << student[i].id << "," << student[i].fullname << "," << student[i].mark.lab << "," << student[i].mark.midterm << "," << student[i].mark.final << "," << student[i].mark.bonus << endl;
     fout.close();
+    delete[]student;
 }
 //Chuc nang 26: Xem bang diem danh
 void View_attendance_list()
@@ -1649,6 +1670,7 @@ void View_attendance_list()
             cout << student[i].check_in[j] << "\t";
         cout << endl;
     }
+    delete[]student;
 }
 //Chuc nang 27: Luu vao file csv
 void save_attendance_list()
@@ -1686,6 +1708,7 @@ void save_attendance_list()
         fout << endl;
     }
     fout.close();
+    delete[]student;
 }
 
 
