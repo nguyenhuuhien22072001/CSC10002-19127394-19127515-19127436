@@ -45,11 +45,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 	}
 	fstu.close();
 	delete[] student;
-<<<<<<< HEAD
-	flec.open("D:\\filetest\\Lecture.txt" , ios :: in);
-=======
 	flec.open("D:\\filetest\\Lecture.txt",ios::in);
->>>>>>> 164529f5a40c2b5dc0ec3511f4d662afc88ae5af
 	flec >> n;
 	Information* lecture = new Information[n];
 	for (int i = 0; i < n; i++)

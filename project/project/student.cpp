@@ -29,13 +29,13 @@ void check_in(student_in_course &student)
     int num[6] ;
     char *p;
     int index = 0;
-    char* p_ch = strtok_r((char*)time_now.c_str(), ": ", &p);
+    char* p_ch = strtok_s((char*)time_now.c_str(), ": ", &p);
 
     while(p_ch != NULL)
     {
             num[index] = atoi(p_ch) ;
             index++;
-            p_ch=strtok_r(NULL, ": ",&p);
+            p_ch=strtok_s(NULL, ": ",&p);
     }
     
     for(int i = 0 ; i < numofStudent ; i++)
