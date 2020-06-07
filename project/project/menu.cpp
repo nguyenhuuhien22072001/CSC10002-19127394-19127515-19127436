@@ -53,7 +53,7 @@ int login(fstream& fstu, fstream& fsta, fstream& flec , Information & person)
 	}
 	fstu.close();
 	delete[] student;
-	flec.open("D:\\filetest\\Lecture.txt");
+	flec.open("D:\\filetest\\Lecture.txt" , ios :: in);
 	flec >> n;
 	Information* lecture = new Information[n];
 	for (int i = 0; i < n; i++)

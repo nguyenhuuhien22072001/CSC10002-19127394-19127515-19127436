@@ -957,14 +957,14 @@ void loadCourses(string academic_year, string semester, string classname, course
 //Dua thong tin cua hoc sinh trong 1 khoa hoc vao mang
 void loadStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course *&student, int& numofstudent)
 {
-    string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
+    string temp ="D:\\filetest\\" +  academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
     const char* filename = temp.c_str();
     ifstream fin;
 
     fin.open(filename);
     if (!fin.is_open())
     {
-        cout << " Can not open file !!";
+        cout << " Can not open file !!" << endl ;
         return;
     }
     fin >> numofstudent;
@@ -1009,49 +1009,6 @@ void save_int_in_flieout(ofstream & fout , int a )
     else
         fout << a << " " ;
 }
-// void saveStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course* student, int numofstudent)
-// {
-//     string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
-//     const char* filename = temp.c_str();
-//     ofstream fout;
-
-//     fout.open(filename,ios::out);
-//     if (!fout.is_open())
-//     {
-//         cout << "fail !!";
-//         return;
-//     }
-
-//     fout << numofstudent<<endl;
-//     for (int i = 0; i < numofstudent; i++)
-//     {
-//         fout << student[i].Class << endl;
-//         fout << student[i].id << endl;
-//         fout << student[i].fullname << endl;
-//         fout << student[i].dob.year<< " ";
-//         fout << student[i].dob.month << " ";
-//         fout << student[i].dob.date << endl;
-//         fout << student[i].active << endl;
-//         fout << student[i].mark.lab << endl;
-//         fout << student[i].mark.midterm << endl;
-//         fout << student[i].mark.final << endl;
-//         fout << student[i].mark.bonus << endl;
-//         for (int j = 0; j < 10; j++)
-//         {
-//             fout << student[i].date[j].year << " ";
-//             fout << student[i].date[j].month << " ";
-//             fout << student[i].date[j].date << " ";
-//             fout << student[i].StartTime[j].hour << " ";
-//             fout << student[i].StartTime[j].minute << " ";
-//             fout << student[i].EndTime[j].hour << " ";
-//             fout << student[i].EndTime[j].minute << " ";
-//             fout << student[i].check_in[j] << endl;
-//         }
-//         fout << endl;
-//     }
-//     fout.close();
-// }
-
 void saveStudentOfACourse(string academic_year, string semester, string classname, string courseName, student_in_course* student, int numofstudent)
 {
     string temp = "D:\\filetest\\" + academic_year + "-" + semester + "-" + classname + "-" + courseName + "-Student.txt";
@@ -1095,7 +1052,6 @@ void saveStudentOfACourse(string academic_year, string semester, string classnam
     }
     fout.close();
 }
-
 //-Luu thong tin cac khoa hoc trong 1 hoc ky nam hoc
 void saveCourses(string academic_year, string semester, string classname, course* Courses, int numofcourse)
 {

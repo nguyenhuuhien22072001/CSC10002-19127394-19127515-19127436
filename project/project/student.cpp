@@ -16,26 +16,28 @@ void check_in(student_in_course &student)
     getline(cin , academic_year) ;
     cout << "Enter semester : " ;
     getline(cin , semester) ;
-    cout << "Enter classname: " ; 
-    getline(cin , classname) ; 
+    cout << "Enter classname: " ;
+    getline(cin , classname) ;
     cout << "Enter courseName: " ;
     getline(cin , courseName) ;
     student_in_course * Student ;
     int numofStudent = 0 ;
     loadStudentOfACourse(academic_year, semester,classname, courseName, Student, numofStudent);
+    if (numofStudent == 0)
+        return ;
     const string time_now = currentDateTime() ;
-    rsize_t strmax = sizeof((char*)time_now.c_str());
     int num[6] ;
     char *p;
     int index = 0;
-    char* p_ch = strtok_s((char*)time_now.c_str(), ": ", &p);
+    char* p_ch = strtok_r((char*)time_now.c_str(), ": ", &p);
 
     while(p_ch != NULL)
     {
             num[index] = atoi(p_ch) ;
             index++;
-            p_ch=strtok_s(NULL, ": ",&p);
+            p_ch=strtok_r(NULL, ": ",&p);
     }
+    
     for(int i = 0 ; i < numofStudent ; i++)
     {
         if(Student[i].id == student.id)
@@ -45,6 +47,7 @@ void check_in(student_in_course &student)
                 int StartTime = Student[i].StartTime[j].hour*60 + Student[i].StartTime[j].minute ;
                 
                 int EndTime = Student[i].EndTime[j].hour*60 + Student[i].EndTime[j].minute ;
+                
                 if( Student[i].date[j].year == num[0] &&  Student[i].date[j].month == num[1] && Student[i].date[j].date == num[2] &&
                     StartTime <= (num[3]*60 + num[4]) &&
                     (num[3]*60 + num[4]) <= EndTime)
@@ -52,17 +55,17 @@ void check_in(student_in_course &student)
                     Student[i].check_in[j] = 1 ;
                     cout << "Check-in successfully" << endl ;
                     cout << num[0] << "-" << num[1] << "-" << num[2] << " " << Student[i].StartTime[j].hour <<":" << Student[i].StartTime[j].minute << " " << Student[i].EndTime[j].hour << ":" <<Student[i].EndTime[j].minute << " " << Student[i].check_in[j] << endl ;
+                    saveStudentOfACourse(academic_year, semester, classname, courseName, Student, numofStudent);
+                    delete[] Student;
+                    return;
                 }
             }
-            saveStudentOfACourse(academic_year, semester, classname, courseName, Student, numofStudent);
-            delete[] Student;
-            return;
         }
     }
     cout << "Check-in failed !!!" << endl;
+    delete[] Student;
     return;
 }
-//Chuc nang 36. xem ket qua diem danh
 void print_check_in(int a)
 {
     if(a < 10)
@@ -70,7 +73,6 @@ void print_check_in(int a)
     else
         cout << a << " " ;
 }
-
 void View_check_in_result(student_in_course student)
 {
     string academic_year, semester, classname, coursename;
@@ -78,15 +80,15 @@ void View_check_in_result(student_in_course student)
     getline(cin, academic_year);
     cout << "Enter semester: ";
     getline(cin, semester);
-    cout << "Enter classname" ; 
-    getline(cin , classname) ; 
+    cout << "Enter classname : " ;
+    getline(cin , classname);
     cout << "Enter course name: ";
     getline(cin, coursename);
-
     student_in_course* Student = NULL;
-    int numofstudent;
+    int numofstudent = 0;
     loadStudentOfACourse(academic_year, semester, classname, coursename, Student, numofstudent);
-
+    if(numofstudent == 0 )
+        return ;
     for (int i = 0; i < numofstudent; i++)
     {
         if (student.id == Student[i].id)
